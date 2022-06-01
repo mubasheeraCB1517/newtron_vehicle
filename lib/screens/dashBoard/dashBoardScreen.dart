@@ -167,6 +167,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           ),
         ),
         appBar: AppBar(
+          centerTitle: true,
           title: Text(
             "DASHBOARD",
             style: TextStyle(color: Colors.green[400]),
@@ -175,13 +176,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           elevation: 0,
           iconTheme: IconThemeData(color: Colors.green[400]),
         ),
-        body: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  scale: 2.5,
-                  image: AssetImage(
-                      "assets/images/newtron_tr_icon-300x300.png")
-                  )),
-        ));
+        body: Column(
+          children: [
+
+          ],
+        )
+    );
   }
 }
