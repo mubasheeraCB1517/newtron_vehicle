@@ -178,7 +178,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         ),
         body: Column(
           children: [
-
+            Container(
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      scale: 2.5,
+                      image: AssetImage(
+                          "assets/images/newtron_tr_icon-300x300.png")
+                      )),
+            ),
           ],
         )
     );
