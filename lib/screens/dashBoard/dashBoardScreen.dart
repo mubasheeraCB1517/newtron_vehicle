@@ -167,6 +167,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           ),
         ),
         appBar: AppBar(
+          centerTitle: true,
           title: Text(
             "DASHBOARD",
             style: TextStyle(color: Colors.green[400]),
