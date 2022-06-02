@@ -176,6 +176,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           elevation: 0,
           iconTheme: IconThemeData(color: Colors.green[400]),
         ),
+
         body:
             Container(
 
@@ -186,7 +187,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       image: AssetImage(
                           "assets/images/newtron_tr_icon-300x300.png")
                       )),
-            ),
+           )
 
     );
   }
