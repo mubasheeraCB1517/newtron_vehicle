@@ -4,6 +4,11 @@ import 'package:newtron_vehicle/screens/modelDetails/modelScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleBooking/vehicleBookingScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleDetails/vehicleScreen.dart';
 
+import '../batteryDetails/batteryScreen.dart';
+import '../dealerRegistration/dealerRegistrationScreen.dart';
+import '../partsDetails/partsScreen.dart';
+import '../warrantyDeatils/warrantyDeatilsScreen.dart';
+
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
 
@@ -43,7 +48,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[800]),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                        const DealerScreen()),
+                  );
+                },
               ),
               ListTile(
                 title: Text(
@@ -63,13 +75,20 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               ),
               ListTile(
                 title: Text(
-                  "Warrenty Requesting",
+                  "Warranty Request ",
                   style: TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[800]),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                        const WarrantyScreen()),
+                  );
+                },
               ),
               ListTile(
                 title: Text(
@@ -124,7 +143,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[800]),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                           builder: (context) =>
+                           const PartsScreen()),
+                     );},
                   ),
                   ListTile(
                     title: Text(
@@ -166,9 +191,16 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[800]),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                           builder: (context) =>
+                           const BatteryScreen()),
+                     );},
                   ),
                 ],
+
               ),
               ListTile(
                 title: Text(
