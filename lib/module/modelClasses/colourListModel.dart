@@ -1,12 +1,12 @@
-class VehicleList {
+class ColourList {
     List<dynamic>? data;
     String? message;
     int? success;
 
-    VehicleList({this.data, this.message, this.success});
+    ColourList({this.data, this.message, this.success});
 
-    factory VehicleList.fromJson(Map<String, dynamic> json) {
-        return VehicleList(
+    factory ColourList.fromJson(Map<String, dynamic> json) {
+        return ColourList(
             data: json['data'] != null ? (json['data']).map((i) => Data.fromJson(i)).toList() : null,
             message: json['message'],
             success: json['success'],
@@ -18,41 +18,49 @@ class VehicleList {
         data['message'] = this.message;
         data['success'] = this.success;
         if (this.data != null) {
-            data['`data`'] = this.data!.map((v) => v.toJson()).toList();
+            data['`data`'] = this.data?.map((v) => v.toJson()).toList();
         }
         return data;
     }
 }
 
 class Data {
-    String? amount;
+    String? color_name;
+    int? color_id;
     String? created_at;
-    String? current_date;
+    String? dealer_price;
+    String? price;
+    String? specification;
     String? updated_at;
-    int? vechicle_id;
     String? vechicle_name;
 
-    Data({this.amount, this.created_at, this.current_date, this.updated_at, this.vechicle_id, this.vechicle_name});
+    Data({this.color_name, this.color_id, this.created_at, this.dealer_price, this.price, this.specification, this.updated_at, this.vechicle_name});
 
     factory Data.fromJson(Map<String, dynamic> json) {
         return Data(
-            amount: json['amount'],
+            color_name: json['color_name'],
+            color_id: json['color_id'],
             created_at: json['created_at'],
-            current_date: json['current_date'],
+            dealer_price: json['dealer_price'],
+            price: json['price'],
+            specification: json['specification'],
             updated_at: json['updated_at'],
-            vechicle_id: json['vechicle_id'],
             vechicle_name: json['vechicle_name'],
         );
     }
 
     Map<String, dynamic> toJson() {
         final Map<String, dynamic> data = new Map<String, dynamic>();
-        data['amount'] = this.amount;
+        data['color'] = this.color_name;
+        data['color_id'] = this.color_id;
         data['created_at'] = this.created_at;
-        data['current_date'] = this.current_date;
+        data['dealer_price'] = this.dealer_price;
+        data['price'] = this.price;
+        data['specification'] = this.specification;
         data['updated_at'] = this.updated_at;
-        data['vechicle_id'] = this.vechicle_id;
-        data['vechicle_name'] = this.vechicle_name;
+        if (this.vechicle_name != null) {
+            data['vechicle_name'] = this.vechicle_name;
+        }
         return data;
     }
 }
