@@ -1,23 +1,24 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:newtron_vehicle/module/blocs/vehicleListBloc.dart';
-import 'package:newtron_vehicle/module/modelClasses/vehicleListModel.dart';
+import 'package:newtron_vehicle/module/blocs/colourListBloc.dart';
+import 'package:newtron_vehicle/module/modelClasses/colourListModel.dart';
 import 'package:newtron_vehicle/network/response.dart';
 
-class VehicleScreen extends StatefulWidget {
-  const VehicleScreen({Key? key}) : super(key: key);
-
+class ColourScreen extends StatefulWidget {
+  const ColourScreen({Key? key}) : super(key: key);
   @override
-  State<VehicleScreen> createState() => _VehicleScreenState();
+  State<ColourScreen> createState() => _ColourScreenState();
 }
 
-class _VehicleScreenState extends State<VehicleScreen> {
-  late VehicleList vehicles;
-  late VehicleListBloc _bloc;
+class _ColourScreenState extends State<ColourScreen> {
+  late ColourList colours;
+  late ColourListBloc _bloc;
 
   @override
   void initState() {
     super.initState();
-    _bloc = VehicleListBloc();
+    _bloc = ColourListBloc();
   }
 
   @override
@@ -28,16 +29,15 @@ class _VehicleScreenState extends State<VehicleScreen> {
           centerTitle: true,
           backgroundColor: Colors.yellow[200],
           title: Text(
-            "Vehicle List",
+            "Colour List",
             style: TextStyle(color: Colors.green[400]),
           ),
           elevation: 0,
         ),
-        body: StreamBuilder<Response<VehicleList>>(
-            stream: _bloc.vehicleListDataStream,
+        body: StreamBuilder<Response<ColourList>>(
+            stream: _bloc.colourListDataStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                // ignore: missing_enum_constant_in_switch
                 switch (snapshot.data!.status) {
                   case Status.LOADING:
                     return Center(
@@ -45,15 +45,14 @@ class _VehicleScreenState extends State<VehicleScreen> {
                         color: Colors.green[400],
                       ),
                     );
-
                   case Status.SUCCESS:
-                    vehicles = snapshot.data!.data;
+                    colours = snapshot.data!.data;
                     return Stack(
                       children: [
                         Container(
                           margin: const EdgeInsets.only(top: 20),
                           child: ListView.builder(
-                              itemCount: vehicles.data?.length,
+                              itemCount: colours.data?.length,
                               itemBuilder: (context, index) {
                                 return Container(
                                   padding: const EdgeInsets.symmetric(
@@ -75,29 +74,21 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                       ]),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
+
                                       Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
+                                            Text(colours.data?[index]
+                                                .color_name ??
+                                                "",style: const TextStyle(color:Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
                                             Text(
-                                              vehicles.data?[index]
-                                                      .vechicle_name ??
-                                                  "",
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18,
-                                                  fontWeight:
-                                                      FontWeight.bold),
-                                            ),
-                                            Text(
-                                              "₹${vehicles.data?[index].amount ?? ""}",
-                                              style: TextStyle(
-                                                  color: Colors.red[900]),
-                                            ),
+                                              "₹${colours.data?[index]
+                                                  .dealer_price ?? ""}",style: TextStyle(color:Colors.red[900]),),
                                           ]),
                                       const SizedBox(
                                         width: 50,
@@ -109,26 +100,31 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                           decoration: BoxDecoration(
                                               color: Colors.green[400],
                                               borderRadius:
-                                                  BorderRadius.circular(5)),
+                                              BorderRadius.circular(5)),
                                           child: const Center(
                                               child: Text(
-                                            "Delete",
-                                            style: TextStyle(
-                                                color: Colors.white),
-                                          )),
+                                                "Delete",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              )),
                                         ),
                                       ),
+
                                     ],
                                   ),
                                 );
                               }),
                         ),
+
                       ],
                     );
                   case Status.ERROR:
                     return Container(
                       color: Colors.yellow,
                     );
+                  case Status.COMPLETED:
+                    // TODO: Handle this case.
+                    break;
                 }
               }
               return Container(

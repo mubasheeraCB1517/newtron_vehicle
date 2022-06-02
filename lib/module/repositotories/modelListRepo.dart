@@ -1,18 +1,17 @@
 
-
-import 'package:newtron_vehicle/module/modelClasses/vehicleListModel.dart';
+import 'package:newtron_vehicle/module/modelClasses/modelListModel.dart';
 import 'package:newtron_vehicle/network/webApiProvider.dart';
 
-class VehicleListRepository {
-  Future vehicleList() async {
+class ModelListRepository {
+  Future modelList() async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{};
     final response = await WebApiProvider().getData(
-        url: "/api/vechicle_list",
+        url: "/api/model_list",
         isPost: false,
         isDelete: false,
         isPatch: false,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
-    return VehicleList.fromJson(response);
+    return ModelList.fromJson(response);
   }
 }

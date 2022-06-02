@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:newtron_vehicle/screens/colourDetails/colourScreen.dart';
+import 'package:newtron_vehicle/screens/modelDetails/modelScreen.dart';
+import 'package:newtron_vehicle/screens/vehicleBooking/vehicleBookingScreen.dart';
+import 'package:newtron_vehicle/screens/vehicleDetails/vehicleScreen.dart';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
@@ -24,9 +28,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                           scale: 1,
-                          image: AssetImage(
-                              "assets/images/newtron_vehicle.png")
-                          )),
+                          image:
+                              AssetImage("assets/images/newtron_vehicle.png"))),
                 )),
               ),
               const SizedBox(
@@ -50,11 +53,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[800]),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const VehicleBookingScreen()),
+                  );
+                },
               ),
               ListTile(
                 title: Text(
-                  "Warrenty Booking",
+                  "Warrenty Requesting",
                   style: TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.bold,
@@ -90,58 +99,76 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[800]),
                 ),
-               children: [
-                 ListTile(
-                   title: Text(
-                     "Vehicle",
-                     style: TextStyle(
-                         fontSize: 19,
-                         fontWeight: FontWeight.bold,
-                         color: Colors.grey[800]),
-                   ),
-                   onTap: () {},
-                 ),
-                 ListTile(
-                   title: Text(
-                     "Parts",
-                     style: TextStyle(
-                         fontSize: 19,
-                         fontWeight: FontWeight.bold,
-                         color: Colors.grey[800]),
-                   ),
-                   onTap: () {},
-                 ),
-                 ListTile(
-                   title: Text(
-                     "Model",
-                     style: TextStyle(
-                         fontSize: 19,
-                         fontWeight: FontWeight.bold,
-                         color: Colors.grey[800]),
-                   ),
-                   onTap: () {},
-                 ),
-                 ListTile(
-                   title: Text(
-                     "Colour",
-                     style: TextStyle(
-                         fontSize: 19,
-                         fontWeight: FontWeight.bold,
-                         color: Colors.grey[800]),
-                   ),
-                   onTap: () {},
-                 ),
-                 ListTile(
-                   title: Text(
-                     "Battery",
-                     style: TextStyle(
-                         fontSize: 19,
-                         fontWeight: FontWeight.bold,
-                         color: Colors.grey[800]),
-                   ),
-                   onTap: () {},
-                 ),
-               ],
+                children: [
+                  ListTile(
+                    title: Text(
+                      "Vehicle",
+                      style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800]),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const VehicleScreen()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Parts",
+                      style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800]),
+                    ),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Model",
+                      style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800]),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ModelScreen()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Colour",
+                      style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800]),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ColourScreen()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Battery",
+                      style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800]),
+                    ),
+                    onTap: () {},
+                  ),
+                ],
               ),
               ListTile(
                 title: Text(
@@ -176,19 +203,12 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           elevation: 0,
           iconTheme: IconThemeData(color: Colors.green[400]),
         ),
-
-        body:
-            Container(
-
-              decoration: const BoxDecoration(
-
-                  image: DecorationImage(
-                      scale: 2.5,
-                      image: AssetImage(
-                          "assets/images/newtron_tr_icon-300x300.png")
-                      )),
-           )
-
-    );
+        body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  scale: 2.5,
+                  image:
+                      AssetImage("assets/images/newtron_tr_icon-300x300.png"))),
+        ));
   }
 }
