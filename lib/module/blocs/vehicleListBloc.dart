@@ -6,12 +6,12 @@ import 'package:newtron_vehicle/network/response.dart';
 
 class VehicleListBloc{
   VehicleListRepository  _vehicleListRepository = new VehicleListRepository ();
-  final _vehicleListDataController= StreamController<Response<List<VehicleList>>>();
+  final _vehicleListDataController= StreamController<Response<VehicleList>>();
 
-  StreamSink<Response<List<VehicleList>>> get vehicleListDataSink =>
+  StreamSink<Response<VehicleList>> get vehicleListDataSink =>
       _vehicleListDataController.sink;
 
-  Stream<Response<List<VehicleList>>>? get vehicleListDataStream =>
+  Stream<Response<VehicleList>>? get vehicleListDataStream =>
       _vehicleListDataController.stream;
 
   VehicleListBloc() {
@@ -22,7 +22,7 @@ class VehicleListBloc{
   getVehicleListBloc() async {
     vehicleListDataSink.add(Response.loading('Fetching...'));
     try {
-      List<VehicleList> _vehicleList = await _vehicleListRepository.vehicleList();
+   VehicleList _vehicleList = await _vehicleListRepository.vehicleList();
       vehicleListDataSink.add(Response.success(_vehicleList));
     } catch (e) {
       vehicleListDataSink.add(Response.error(e.toString()));
