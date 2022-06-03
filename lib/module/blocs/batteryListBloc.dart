@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:newtron_vehicle/module/modelClasses/batteryListModel.dart';
@@ -6,9 +5,9 @@ import 'package:newtron_vehicle/network/response.dart';
 
 import '../repositotories/batteryListRepo.dart';
 
-class BatteryListBloc{
-  BatteryListRepository  _batteryListRepository = new BatteryListRepository ();
-  final _batteryListDataController= StreamController<Response<BatteryList>>();
+class BatteryListBloc {
+  BatteryListRepository _batteryListRepository = new BatteryListRepository();
+  final _batteryListDataController = StreamController<Response<BatteryList>>();
 
   StreamSink<Response<BatteryList>> get batteryListDataSink =>
       _batteryListDataController.sink;
@@ -17,7 +16,7 @@ class BatteryListBloc{
       _batteryListDataController.stream;
 
   BatteryListBloc() {
-    _batteryListRepository = BatteryListRepository ();
+    _batteryListRepository = BatteryListRepository();
     getbatteryListBloc();
   }
 

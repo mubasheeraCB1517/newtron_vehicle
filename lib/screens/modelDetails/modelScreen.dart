@@ -73,21 +73,26 @@ class _ModelScreenState extends State<ModelScreen> {
                                       ]),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-
                                       Column(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Text(models.data?[index]
-                                                .model ??
-                                                "",style: const TextStyle(color:Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
                                             Text(
-                                              "₹${models.data?[index]
-                                                  .dealer_price ?? ""}",style: TextStyle(color:Colors.red[900]),),
+                                              models.data?[index].model ?? "",
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "₹${models.data?[index].dealer_price ?? ""}",
+                                              style: TextStyle(
+                                                  color: Colors.red[900]),
+                                            ),
                                           ]),
                                       const SizedBox(
                                         width: 50,
@@ -99,22 +104,20 @@ class _ModelScreenState extends State<ModelScreen> {
                                           decoration: BoxDecoration(
                                               color: Colors.green[400],
                                               borderRadius:
-                                              BorderRadius.circular(5)),
+                                                  BorderRadius.circular(5)),
                                           child: const Center(
                                               child: Text(
-                                                "Delete",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              )),
+                                            "Delete",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          )),
                                         ),
                                       ),
-
                                     ],
                                   ),
                                 );
                               }),
                         ),
-
                       ],
                     );
                   case Status.ERROR:

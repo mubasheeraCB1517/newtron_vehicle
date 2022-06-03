@@ -8,6 +8,7 @@ import 'package:newtron_vehicle/screens/vehicleRegistration/vehicleRgistrationSc
 import '../batteryDetails/batteryScreen.dart';
 import '../dealerRegistration/dealerRegistrationScreen.dart';
 import '../partsDetails/partsScreen.dart';
+import '../sparepartsDetails/sparepartsScreen.dart';
 import '../warrantyDeatils/warrantyDeatilsScreen.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -114,6 +115,22 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const VehicleRegistrationScreen()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text(
+                  "Spare Parts",
+                  style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800]),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SparePartsScreen()),
                   );
                 },
               ),

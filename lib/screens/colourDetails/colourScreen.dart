@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/blocs/colourListBloc.dart';
 import 'package:newtron_vehicle/module/modelClasses/colourListModel.dart';
@@ -7,6 +5,7 @@ import 'package:newtron_vehicle/network/response.dart';
 
 class ColourScreen extends StatefulWidget {
   const ColourScreen({Key? key}) : super(key: key);
+
   @override
   State<ColourScreen> createState() => _ColourScreenState();
 }
@@ -74,21 +73,27 @@ class _ColourScreenState extends State<ColourScreen> {
                                       ]),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-
                                       Column(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Text(colours.data?[index]
-                                                .color_name ??
-                                                "",style: const TextStyle(color:Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
                                             Text(
-                                              "₹${colours.data?[index]
-                                                  .dealer_price ?? ""}",style: TextStyle(color:Colors.red[900]),),
+                                              colours.data?[index].color_name ??
+                                                  "",
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "₹${colours.data?[index].dealer_price ?? ""}",
+                                              style: TextStyle(
+                                                  color: Colors.red[900]),
+                                            ),
                                           ]),
                                       const SizedBox(
                                         width: 50,
@@ -100,22 +105,20 @@ class _ColourScreenState extends State<ColourScreen> {
                                           decoration: BoxDecoration(
                                               color: Colors.green[400],
                                               borderRadius:
-                                              BorderRadius.circular(5)),
+                                                  BorderRadius.circular(5)),
                                           child: const Center(
                                               child: Text(
-                                                "Delete",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              )),
+                                            "Delete",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          )),
                                         ),
                                       ),
-
                                     ],
                                   ),
                                 );
                               }),
                         ),
-
                       ],
                     );
                   case Status.ERROR:

@@ -1,6 +1,3 @@
-
-
-
 import 'package:newtron_vehicle/network/webApiProvider.dart';
 
 import '../modelClasses/dealerListModel.dart';
