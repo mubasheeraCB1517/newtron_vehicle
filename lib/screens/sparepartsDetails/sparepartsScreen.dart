@@ -1,41 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/network/response.dart';
 
-import '../../module/blocs/batteryListBloc.dart';
-import '../../module/modelClasses/batteryListModel.dart';
+import '../../module/blocs/sparepartsListBloc.dart';
+import '../../module/modelClasses/sparepartsListModel.dart';
 
-class BatteryScreen extends StatefulWidget {
-  const BatteryScreen({Key? key}) : super(key: key);
+
+
+
+class SparePartsScreen extends StatefulWidget {
+  const SparePartsScreen({Key? key}) : super(key: key);
 
   @override
-  State<BatteryScreen> createState() => _BatteryScreenState();
+  State<SparePartsScreen> createState() => _BatteryScreenState();
 }
 
-class _BatteryScreenState extends State<BatteryScreen> {
-  late BatteryList battery;
-  late BatteryListBloc _bloc;
+class _BatteryScreenState extends State<SparePartsScreen> {
+  late SparePartsList spare;
+  late SparePartsListBloc _bloc;
 
   @override
   void initState() {
     super.initState();
-    _bloc = BatteryListBloc();
+    _bloc =  SparePartsListBloc();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.green[400]),
           centerTitle: true,
           backgroundColor: Colors.yellow[200],
           title: Text(
-            "Battery List",
+            "SpareParts List",
             style: TextStyle(color: Colors.green[400]),
           ),
           elevation: 0,
         ),
-        body: StreamBuilder<Response<BatteryList>>(
-            stream: _bloc.batteryListDataStream,
+        body: StreamBuilder<Response<SparePartsList>>(
+            stream: _bloc.sparesListDataStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 switch (snapshot.data!.status) {
@@ -45,29 +49,25 @@ class _BatteryScreenState extends State<BatteryScreen> {
                         color: Colors.green[400],
                       ),
                     );
+
                   case Status.SUCCESS:
-                    battery = snapshot.data!.data;
+                    spare = snapshot.data!.data;
+                    print("parts==${spare.message}");
                     return Stack(
                       children: [
+
                         Positioned(
                             left: 320,
                             top: 5,
-                            child: TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  "Add",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ))),
+                            child:  TextButton(onPressed: (){}, child: Text("Add",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),))),
                         Container(
                           margin: const EdgeInsets.only(top: 40,),
+                          // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 40),
                           child: ListView.builder(
-                              itemCount: battery.data?.length,
+                              itemCount: spare.data?.length,
                               itemBuilder: (context, index) {
                                 return Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 30),
+                                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 10),
                                   width: MediaQuery.of(context).size.width,
@@ -85,57 +85,52 @@ class _BatteryScreenState extends State<BatteryScreen> {
                                       ]),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
+
+
                                       Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
+                                            Text(spare.data?[index]
+                                                .vechicle_name ??
+                                                "",style: TextStyle(fontSize:18,fontWeight: FontWeight.bold),),
+                                            const SizedBox(height: 10,),
                                             Text(
-                                              battery.data?[index].battery ??
-                                                  "",
-                                              style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight:
-                                                      FontWeight.bold),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              "₹${battery.data?[index].dealer_price ?? ""}",
-                                              style: const TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.red),
-                                            ),
+                                              "${spare.data?[index]
+                                                  .customer_name ?? ""}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.red),),
                                           ]),
                                       const SizedBox(
                                         width: 10,
                                       ),
                                       GestureDetector(
+
+
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 5),
                                           decoration: BoxDecoration(
                                               color: Colors.green[400],
                                               borderRadius:
-                                                  BorderRadius.circular(5)),
+                                              BorderRadius.circular(5)),
                                           child: const Center(
                                               child: Text(
-                                            "Delete",
-                                            style: TextStyle(
-                                                color: Colors.white),
-                                          )),
+                                                "Delete",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              )),
                                         ),
                                       ),
+
                                     ],
                                   ),
                                 );
                               }),
                         ),
+
                       ],
                     );
                   case Status.ERROR:
@@ -143,6 +138,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
                       color: Colors.yellow,
                     );
                   case Status.COMPLETED:
+                  // TODO: Handle this case.
                     break;
                 }
               }

@@ -1,16 +1,17 @@
-import 'package:newtron_vehicle/module/modelClasses/colourListModel.dart';
 import 'package:newtron_vehicle/network/webApiProvider.dart';
 
-class ColourListRepository {
-  Future colourList() async {
+import '../modelClasses/sparepartsListModel.dart';
+
+class SparePartsListRepository {
+  Future sparepartsList() async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{};
     final response = await WebApiProvider().getData(
-        url: "/api/color_list",
+        url: "/api/spare_parts_list",
         isPost: false,
         isDelete: false,
         isPatch: false,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
-    return ColourList.fromJson(response);
+    return SparePartsList.fromJson(response);
   }
 }

@@ -43,105 +43,101 @@ class _BatteryScreenState extends State<PartsScreen> {
               if (snapshot.hasData) {
                 switch (snapshot.data!.status) {
                   case Status.LOADING:
-                    return Container(
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.green[400],
-                        ),
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.green[400],
                       ),
-                    ); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
-                    break;
+                    );
+
                   case Status.SUCCESS:
                     parts = snapshot.data!.data;
-                    return Container(
+                    return Stack(
+                      children: [
 
-                      child: Stack(
-                        children: [
-
-                          Positioned(
-                              left: 320,
-                              top: 5,
-                              child:  TextButton(onPressed: (){}, child: Text("Add",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),))),
-
-
-                          Container(
-                            margin: const EdgeInsets.only(top: 40, bottom: 130),
-                            // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 40),
-                            child: ListView.builder(
-                                itemCount: parts.data?.length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 20,vertical: 30),
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.2),
-                                            spreadRadius: 1,
-                                            blurRadius: 3,
-                                            offset: const Offset(1,
-                                                1), // changes position of shadow
-                                          ),
-                                        ]),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-
-
-                                        Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: [
-                                              Text(parts.data?[index]
-                                                  .vechicle_name ??
-                                                  "",style: TextStyle(fontSize:18,fontWeight: FontWeight.bold),),
-                                              SizedBox(height: 10,),
-                                              Text(
-                                                "${parts.data?[index]
-                                                    .specification ?? ""}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.red),),
-                                            ]),
-                                        const SizedBox(
-                                          width: 10,
+                        Positioned(
+                            left: 320,
+                            top: 5,
+                            child:  TextButton(onPressed: (){}, child: Text("Add",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),))),
+                        Container(
+                          margin: const EdgeInsets.only(top: 40,),
+                          // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 40),
+                          child: ListView.builder(
+                              itemCount: parts.data?.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 3,
+                                          offset: const Offset(1,
+                                              1), // changes position of shadow
                                         ),
-                                        GestureDetector(
+                                      ]),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
 
 
-                                          child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 5),
-                                            decoration: BoxDecoration(
-                                                color: Colors.green[400],
-                                                borderRadius:
-                                                BorderRadius.circular(5)),
-                                            child: const Center(
-                                                child: Text(
-                                                  "Delete",
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                )),
-                                          ),
+                                      Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(parts.data?[index]
+                                                .vechicle_name ??
+                                                "",style: TextStyle(fontSize:18,fontWeight: FontWeight.bold),),
+                                            const SizedBox(height: 10,),
+                                            Text(
+                                              "${parts.data?[index]
+                                                  .specification ?? ""}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.red),),
+                                          ]),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      GestureDetector(
+
+
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 5),
+                                          decoration: BoxDecoration(
+                                              color: Colors.green[400],
+                                              borderRadius:
+                                              BorderRadius.circular(5)),
+                                          child: const Center(
+                                              child: Text(
+                                                "Delete",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              )),
                                         ),
+                                      ),
 
-                                      ],
-                                    ),
-                                  );
-                                }),
-                          ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                        ),
 
-                        ],
-                      ),
+                      ],
                     );
                   case Status.ERROR:
                     return Container(
                       color: Colors.yellow,
                     );
+                  case Status.COMPLETED:
+                    // TODO: Handle this case.
+                    break;
                 }
               }
               return Container(

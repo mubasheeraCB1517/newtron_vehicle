@@ -1,10 +1,6 @@
-
-
-
 import 'package:newtron_vehicle/network/webApiProvider.dart';
 
 import '../modelClasses/partsListModel.dart';
-
 
 class PartsListRepository {
   Future partsList() async {

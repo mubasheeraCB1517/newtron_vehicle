@@ -60,7 +60,10 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                       horizontal: 20, vertical: 30),
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 10),
-                                  width: MediaQuery.of(context).size.width,
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Colors.white,
@@ -75,26 +78,27 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                       ]),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               vehicles.data?[index]
-                                                      .vechicle_name ??
+                                                  .vechicle_name ??
                                                   "",
                                               style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 18,
                                                   fontWeight:
-                                                      FontWeight.bold),
+                                                  FontWeight.bold),
                                             ),
                                             Text(
-                                              "₹${vehicles.data?[index].amount ?? ""}",
+                                              "₹${vehicles.data?[index]
+                                                  .amount ?? ""}",
                                               style: TextStyle(
                                                   color: Colors.red[900]),
                                             ),
@@ -109,13 +113,13 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                           decoration: BoxDecoration(
                                               color: Colors.green[400],
                                               borderRadius:
-                                                  BorderRadius.circular(5)),
+                                              BorderRadius.circular(5)),
                                           child: const Center(
                                               child: Text(
-                                            "Delete",
-                                            style: TextStyle(
-                                                color: Colors.white),
-                                          )),
+                                                "Delete",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              )),
                                         ),
                                       ),
                                     ],

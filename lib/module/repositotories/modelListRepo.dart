@@ -1,4 +1,3 @@
-
 import 'package:newtron_vehicle/module/modelClasses/modelListModel.dart';
 import 'package:newtron_vehicle/network/webApiProvider.dart';
 
