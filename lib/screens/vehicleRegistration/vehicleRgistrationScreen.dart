@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:newtron_vehicle/module/blocs/vehicleListBloc.dart';
-import 'package:newtron_vehicle/module/modelClasses/vehicleListModel.dart';
+import 'package:newtron_vehicle/module/blocs/vehicleRegistrationListBloc.dart';
+import 'package:newtron_vehicle/module/modelClasses/vehicleRegistrationListModel.dart';
 import 'package:newtron_vehicle/network/response.dart';
-import 'package:newtron_vehicle/screens/vehicleDetails/vehicleCreation.dart';
 
-class VehicleScreen extends StatefulWidget {
-  const VehicleScreen({Key? key}) : super(key: key);
+class VehicleRegistrationScreen extends StatefulWidget {
+  const VehicleRegistrationScreen({Key? key}) : super(key: key);
 
   @override
-  State<VehicleScreen> createState() => _VehicleScreenState();
+  State<VehicleRegistrationScreen> createState() =>
+      _VehicleRegistrationScreenState();
 }
 
-class _VehicleScreenState extends State<VehicleScreen> {
-  late VehicleList vehicles;
-  late VehicleListBloc _bloc;
+class _VehicleRegistrationScreenState extends State<VehicleRegistrationScreen> {
+  late VehicleRegistrationList vehicles;
+  late VehicleRegistrationListBloc _bloc;
 
   @override
   void initState() {
     super.initState();
-    _bloc = VehicleListBloc();
+    _bloc = VehicleRegistrationListBloc();
   }
 
   @override
@@ -27,24 +27,15 @@ class _VehicleScreenState extends State<VehicleScreen> {
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.green[400]),
           centerTitle: true,
-          actions: [
-            IconButton(onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const VehicleCreation()),
-              );
-            }, icon: Icon(Icons.add))
-          ],
           backgroundColor: Colors.yellow[200],
           title: Text(
-            "Vehicle List",
+            "Vehicle Registration List",
             style: TextStyle(color: Colors.green[400]),
           ),
           elevation: 0,
         ),
-        body: StreamBuilder<Response<VehicleList>>(
-            stream: _bloc.vehicleListDataStream,
+        body: StreamBuilder<Response<VehicleRegistrationList>>(
+            stream: _bloc.vehicleRegistrationListDataStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 // ignore: missing_enum_constant_in_switch
@@ -67,7 +58,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                               itemBuilder: (context, index) {
                                 return Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 30),
+                                      horizontal: 0, vertical: 0),
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 10),
                                   width: MediaQuery.of(context).size.width,
@@ -87,26 +78,48 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
+                                      Expanded(
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              bottomLeft: Radius.circular(10)),
+                                          child: Image.network(
+                                            vehicles.data?[index].filename,
+                                            scale: 1.5,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
                                       Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              vehicles.data?[index]
-                                                      .vechicle_name ??
-                                                  "",
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18,
-                                                  fontWeight:
-                                                      FontWeight.bold),
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                  top: 30),
+                                              child: Text(
+                                                vehicles.data?[index]
+                                                        .vechicle_name ??
+                                                    "",
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
                                             ),
-                                            Text(
-                                              "₹${vehicles.data?[index].amount ?? ""}",
-                                              style: TextStyle(
-                                                  color: Colors.red[900]),
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                  bottom: 30),
+                                              child: Text(
+                                                "${vehicles.data?[index].motor_num ?? ""}",
+                                                style: TextStyle(
+                                                    color: Colors.red[900]),
+                                              ),
                                             ),
                                           ]),
                                       const SizedBox(
@@ -123,10 +136,13 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                           child: const Center(
                                               child: Text(
                                             "Delete",
-                                            style: TextStyle(
-                                                color: Colors.white),
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           )),
                                         ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
                                       ),
                                     ],
                                   ),
