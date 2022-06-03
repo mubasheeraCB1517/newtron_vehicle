@@ -3,6 +3,7 @@ import 'package:newtron_vehicle/screens/colourDetails/colourScreen.dart';
 import 'package:newtron_vehicle/screens/modelDetails/modelScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleBooking/vehicleBookingScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleDetails/vehicleScreen.dart';
+import 'package:newtron_vehicle/screens/vehicleRegistration/vehicleRgistrationScreen.dart';
 
 import '../batteryDetails/batteryScreen.dart';
 import '../dealerRegistration/dealerRegistrationScreen.dart';
@@ -93,7 +94,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               ),
               ListTile(
                 title: Text(
-                  "Customized",
+                  "Customers",
                   style: TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.bold,
@@ -109,7 +110,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[800]),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const VehicleRegistrationScreen()),
+                  );
+                },
               ),
               ListTile(
                 title: Text(
