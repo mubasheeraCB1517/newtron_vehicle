@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/blocs/colourListBloc.dart';
 import 'package:newtron_vehicle/module/modelClasses/colourListModel.dart';
 import 'package:newtron_vehicle/network/response.dart';
+import 'package:newtron_vehicle/screens/colourDetails/colourCreation.dart';
 
 class ColourScreen extends StatefulWidget {
   const ColourScreen({Key? key}) : super(key: key);
@@ -32,6 +33,17 @@ class _ColourScreenState extends State<ColourScreen> {
             style: TextStyle(color: Colors.green[400]),
           ),
           elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ColourCreation()),
+                  );
+                },
+                icon: Icon(Icons.add))
+          ],
         ),
         body: StreamBuilder<Response<ColourList>>(
             stream: _bloc.colourListDataStream,
