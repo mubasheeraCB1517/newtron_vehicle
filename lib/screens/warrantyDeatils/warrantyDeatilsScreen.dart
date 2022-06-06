@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/network/response.dart';
+import 'package:newtron_vehicle/screens/warrantyDeatils/warrantyCreation.dart';
 
 import '../../module/blocs/warrantyListBloc.dart';
 import '../../module/modelClasses/warrantyListModel.dart';
@@ -33,6 +34,17 @@ class _BatteryScreenState extends State<WarrantyScreen> {
             style: TextStyle(color: Colors.green[400]),
           ),
           elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const WarrantyCreation()),
+                  );
+                },
+                icon: Icon(Icons.add))
+          ],
         ),
         body: StreamBuilder<Response<WarrantyList>>(
             stream: _bloc.warrantyListDataStream,
@@ -51,20 +63,10 @@ class _BatteryScreenState extends State<WarrantyScreen> {
                     print("warranty===${Warranty.data?[0].vechicle_name}");
                     return Stack(
                       children: [
-                        Positioned(
-                            left: 320,
-                            top: 5,
-                            child: TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  "Add",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ))),
+
                         Container(
                           margin: const EdgeInsets.only(
-                            top: 40,
+                            top: 20,
                           ),
                           child: ListView.builder(
                               itemCount: Warranty.data?.length,

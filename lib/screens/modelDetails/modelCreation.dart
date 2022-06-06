@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:newtron_vehicle/module/modelClasses/batteryListModel.dart';
-import 'package:newtron_vehicle/module/modelClasses/modelListModel.dart';
-import 'package:newtron_vehicle/module/repositotories/batteryListRepo.dart';
-import 'package:newtron_vehicle/module/repositotories/modelListRepo.dart';
-import 'package:newtron_vehicle/module/repositotories/vehicleCreationRepo.dart';
+import 'package:newtron_vehicle/module/repositotories/modelCreationRepo.dart';
 import 'package:newtron_vehicle/screens/alertBox/alertBox.dart';
-import 'package:newtron_vehicle/screens/vehicleDetails/vehicleScreen.dart';
+import 'package:newtron_vehicle/screens/modelDetails/modelScreen.dart';
 
-class VehicleCreation extends StatefulWidget {
-  const VehicleCreation({Key? key}) : super(key: key);
+class ModelCreation extends StatefulWidget {
+  const ModelCreation({Key? key}) : super(key: key);
 
   @override
-  State<VehicleCreation> createState() => _VehicleCreationState();
+  State<ModelCreation> createState() => _ModelCreationState();
 }
 
-class _VehicleCreationState extends State<VehicleCreation> {
+class _ModelCreationState extends State<ModelCreation> {
   // ignore: non_constant_identifier_names
   final model_name = TextEditingController();
 
@@ -23,43 +19,22 @@ class _VehicleCreationState extends State<VehicleCreation> {
   final vehicle_name = TextEditingController();
 
   // ignore: non_constant_identifier_names
-  final battery_name = TextEditingController();
+  final specification = TextEditingController();
+  final price = TextEditingController();
 
   // ignore: non_constant_identifier_names
-  final amount = TextEditingController();
-  BatteryList _batteryList = BatteryList();
-  ModelList _modelList = ModelList();
-  String batteryName = "";
-  String batteryId = "";
-  String modelName = "";
-  String modelId = "";
-
-  @override
-  void initState() {
-    super.initState();
-    BatteryListRepository().batteryList().then((value) {
-      setState(() {
-        _batteryList = value;
-        batteryName = value.data[0].battery;
-      });
-    });
-    ModelListRepository().modelList().then((value) {
-      setState(() {
-        _modelList = value;
-        modelName = value.data[0].model;
-      });
-    });
-  }
+  final dealer_price = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.green[400]),
         centerTitle: true,
         backgroundColor: Colors.yellow[200],
         title: Text(
-          "Vehicle",
+          "Model",
           style: TextStyle(color: Colors.green[400]),
         ),
         elevation: 0,
@@ -69,6 +44,23 @@ class _VehicleCreationState extends State<VehicleCreation> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                child: const Text(
+                  "Model Name:",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                )),
+            TextFormField(
+              controller: model_name,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(
+                    color: Colors.green[400]!,
+                  ),
+                ),
+              ),
+            ),
             Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: const Text(
@@ -89,87 +81,46 @@ class _VehicleCreationState extends State<VehicleCreation> {
             Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: const Text(
-                  "Model Name:",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                )),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 55,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0),
-                  border: Border.all(color: Colors.grey)),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                  items: _modelList.data?.map((item) {
-                    modelId = _modelList.data![0].model_id.toString();
-                    return DropdownMenuItem(
-                      value: item.model,
-                      onTap: () {
-                        setState(() {
-                          modelId = item.model_id.toString();
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(item.model ?? ""),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (newValue) {
-                    setState(() {
-                      modelName = newValue.toString();
-                    });
-                  },
-                  value: modelName,
-                ),
-              ),
-            ),
-            Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: const Text(
-                  "Battery Name:",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                )),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 55,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0),
-                  border: Border.all(color: Colors.grey)),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                  items: _batteryList.data?.map((item) {
-                    batteryId = _batteryList.data![0].battery_id.toString();
-                    return DropdownMenuItem(
-                      value: item.battery,
-                      onTap: () {
-                        setState(() {
-                          batteryId = item.battery_id.toString();
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(item.battery ?? ""),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (newValue) {
-                    setState(() {
-                      batteryName = newValue.toString();
-                    });
-                  },
-                  value: batteryName,
-                ),
-              ),
-            ),
-            Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: const Text(
-                  "Amount:",
+                  "Specification:",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 )),
             TextFormField(
-              controller: amount,
+              controller: specification,
+              maxLines: 3,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(
+                    color: Colors.green[400]!,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                child: const Text(
+                  "Price:",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                )),
+            TextFormField(
+              controller: price,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(
+                    color: Colors.green[400]!,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                child: const Text(
+                  "Dealer Price:",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                )),
+            TextFormField(
+              controller: dealer_price,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
@@ -184,13 +135,14 @@ class _VehicleCreationState extends State<VehicleCreation> {
             ),
             GestureDetector(
               onTap: () {
-                vehicle_name.text.isNotEmpty == true &&
-                        amount.text.isNotEmpty == true &&
-                        modelId.isNotEmpty == true &&
-                        batteryId.isNotEmpty == true
-                    ? VehicleCreationRepository()
-                        .vehicleCreation(
-                            vehicle_name.text, modelId, batteryId, amount.text)
+                model_name.text.isNotEmpty == true &&
+                        vehicle_name.text.isNotEmpty == true &&
+                        specification.text.isNotEmpty == true &&
+                        price.text.isNotEmpty == true &&
+                        dealer_price.text.isNotEmpty == true
+                    ? ModelCreationRepository()
+                        .modelCreation(model_name.text, vehicle_name.text,
+                            specification.text, price.text, dealer_price.text)
                         .then((value) {
                         if (value["success"] == 1) {
                           Navigator.pop(context);
@@ -198,10 +150,10 @@ class _VehicleCreationState extends State<VehicleCreation> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const VehicleScreen()),
+                                builder: (context) => const ModelScreen()),
                           );
-                        } else {
-                          const AlertBox(
+                        } else if (value["success"] == 0) {
+                          return const AlertBox(
                             title: "Oh!",
                             image: "assets/images/error.png",
                             content: "Something went wrong",

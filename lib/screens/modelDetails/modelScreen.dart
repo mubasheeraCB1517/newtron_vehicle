@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/blocs/modelListBloc.dart';
 import 'package:newtron_vehicle/module/modelClasses/modelListModel.dart';
 import 'package:newtron_vehicle/network/response.dart';
+import 'package:newtron_vehicle/screens/modelDetails/modelCreation.dart';
 
 class ModelScreen extends StatefulWidget {
   const ModelScreen({Key? key}) : super(key: key);
@@ -32,6 +33,17 @@ class _ModelScreenState extends State<ModelScreen> {
             style: TextStyle(color: Colors.green[400]),
           ),
           elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ModelCreation()),
+                  );
+                },
+                icon: Icon(Icons.add))
+          ],
         ),
         body: StreamBuilder<Response<ModelList>>(
             stream: _bloc.modelListDataStream,
