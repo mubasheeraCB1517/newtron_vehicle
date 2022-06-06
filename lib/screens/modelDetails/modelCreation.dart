@@ -155,7 +155,7 @@ class _ModelCreationState extends State<ModelCreation> {
                         } else if (value["success"] == 0) {
                           return const AlertBox(
                             title: "Oh!",
-                            image: "assets/images/error.png",
+                            image: "assets/images/warning.png",
                             content: "Something went wrong",
                           );
                         }

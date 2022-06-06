@@ -369,7 +369,7 @@ class _WarrantyCreationState extends State<WarrantyCreation> {
                           } else {
                             const AlertBox(
                               title: "Oh!",
-                              image: "assets/images/error.png",
+                              image: "assets/images/warning.png",
                               content: "Something went wrong",
                             );
                           }

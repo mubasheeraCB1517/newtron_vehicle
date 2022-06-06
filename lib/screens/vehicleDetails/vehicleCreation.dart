@@ -203,7 +203,7 @@ class _VehicleCreationState extends State<VehicleCreation> {
                         } else {
                           const AlertBox(
                             title: "Oh!",
-                            image: "assets/images/error.png",
+                            image: "assets/images/warning.png",
                             content: "Something went wrong",
                           );
                         }

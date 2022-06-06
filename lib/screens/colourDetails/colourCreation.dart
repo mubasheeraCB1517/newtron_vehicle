@@ -132,7 +132,7 @@ class _ColourCreationState extends State<ColourCreation> {
                         } else {
                           const AlertBox(
                             title: "Oh!",
-                            image: "assets/images/error.png",
+                            image: "assets/images/warning.png",
                             content: "Something went wrong",
                           );
                         }
