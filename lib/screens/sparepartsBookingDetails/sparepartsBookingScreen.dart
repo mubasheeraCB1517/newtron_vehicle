@@ -53,14 +53,13 @@ class _BatteryScreenState extends State<SparePartsBookingScreen> {
 
                   case Status.SUCCESS:
                     spareparts = snapshot.data!.data;
-                    print("parts==${spareparts.message}");
                     return Stack(
                       children: [
 
                         Positioned(
                             left: 320,
                             top: 5,
-                            child:  TextButton(onPressed: (){}, child: Text("Add",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),))),
+                            child:  TextButton(onPressed: (){}, child: const Text("Add",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),))),
                         Container(
                           margin: const EdgeInsets.only(top: 40,),
                           // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 40),
@@ -98,11 +97,11 @@ class _BatteryScreenState extends State<SparePartsBookingScreen> {
                                           children: [
                                             Text(spareparts.data?[index]
                                                 .customer_name??
-                                                "",style: TextStyle(fontSize:18,fontWeight: FontWeight.bold),),
+                                                "",style: const TextStyle(fontSize:18,fontWeight: FontWeight.bold),),
                                             const SizedBox(height: 10,),
                                             Text(
                                               "${spareparts.data?[index]
-                                                  .vechicle_name ?? ""}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.red),),
+                                                  .vechicle_name ?? ""}",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.red),),
                                           ]),
                                       const SizedBox(
                                         width: 10,
@@ -136,10 +135,13 @@ class _BatteryScreenState extends State<SparePartsBookingScreen> {
                     );
                   case Status.ERROR:
                     return Container(
-                      color: Colors.yellow,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/error.png"),fit: BoxFit.contain,
+                          )
+                      )
                     );
                   case Status.COMPLETED:
-                  // TODO: Handle this case.
                     break;
                 }
               }

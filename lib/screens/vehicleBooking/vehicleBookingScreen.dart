@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/blocs/vehicleBookingListBloc.dart';
 import 'package:newtron_vehicle/module/modelClasses/vehicleBookingListModel.dart';
 import 'package:newtron_vehicle/network/response.dart';
+import 'package:newtron_vehicle/screens/vehicleBooking/vehicleBookingCreation.dart';
 
 class VehicleBookingScreen extends StatefulWidget {
   const VehicleBookingScreen({Key? key}) : super(key: key);
@@ -32,6 +33,16 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
             style: TextStyle(color: Colors.green[400]),
           ),
           elevation: 0,
+          actions: [
+            IconButton(onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder:(context)=>const  VehicleBookinkCreation()
+                  )
+              );
+            }, icon: Icon(Icons.add))
+          ],
         ),
         body: StreamBuilder<Response<VehicleBookingList>>(
             stream: _bloc.vehicleBookingListDataStream,
@@ -124,7 +135,11 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
                     );
                   case Status.ERROR:
                     return Container(
-                      color: Colors.yellow,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                           image: AssetImage("assest/images/error.png")
+                        )
+                      ),
                     );
                   case Status.COMPLETED:
                     // TODO: Handle this case.

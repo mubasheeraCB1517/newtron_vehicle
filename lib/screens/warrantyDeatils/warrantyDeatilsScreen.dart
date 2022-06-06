@@ -48,7 +48,6 @@ class _BatteryScreenState extends State<WarrantyScreen> {
 
                   case Status.SUCCESS:
                     Warranty = snapshot.data!.data;
-                    print("warranty===${Warranty.data?[0].vechicle_name}");
                     return Stack(
                       children: [
                         Positioned(
@@ -144,7 +143,11 @@ class _BatteryScreenState extends State<WarrantyScreen> {
                     );
                   case Status.ERROR:
                     return Container(
-                      color: Colors.yellow,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assest/images/error.png"),fit: BoxFit.fill,
+                          )
+                      ),
                     );
                   case Status.COMPLETED:
                     // TODO: Handle this case.
