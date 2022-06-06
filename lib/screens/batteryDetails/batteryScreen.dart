@@ -3,6 +3,7 @@ import 'package:newtron_vehicle/network/response.dart';
 
 import '../../module/blocs/batteryListBloc.dart';
 import '../../module/modelClasses/batteryListModel.dart';
+import 'batteryCreation.dart';
 
 class BatteryScreen extends StatefulWidget {
   const BatteryScreen({Key? key}) : super(key: key);
@@ -33,6 +34,16 @@ class _BatteryScreenState extends State<BatteryScreen> {
             style: TextStyle(color: Colors.green[400]),
           ),
           elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BatteryCreation()));
+                },
+                icon: const Icon(Icons.add))
+          ],
         ),
         body: StreamBuilder<Response<BatteryList>>(
             stream: _bloc.batteryListDataStream,
@@ -49,19 +60,10 @@ class _BatteryScreenState extends State<BatteryScreen> {
                     battery = snapshot.data!.data;
                     return Stack(
                       children: [
-                        Positioned(
-                            left: 320,
-                            top: 5,
-                            child: TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  "Add",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ))),
                         Container(
-                          margin: const EdgeInsets.only(top: 40,),
+                          margin: const EdgeInsets.only(
+                            top: 40,
+                          ),
                           child: ListView.builder(
                               itemCount: battery.data?.length,
                               itemBuilder: (context, index) {
@@ -98,8 +100,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
                                                   "",
                                               style: const TextStyle(
                                                   fontSize: 18,
-                                                  fontWeight:
-                                                      FontWeight.bold),
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                             const SizedBox(
                                               height: 10,
@@ -126,8 +127,8 @@ class _BatteryScreenState extends State<BatteryScreen> {
                                           child: const Center(
                                               child: Text(
                                             "Delete",
-                                            style: TextStyle(
-                                                color: Colors.white),
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           )),
                                         ),
                                       ),
@@ -140,7 +141,11 @@ class _BatteryScreenState extends State<BatteryScreen> {
                     );
                   case Status.ERROR:
                     return Container(
-                      color: Colors.yellow,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                        image: AssetImage("assest/images/error.png"),
+                        fit: BoxFit.fill,
+                      )),
                     );
                   case Status.COMPLETED:
                     break;

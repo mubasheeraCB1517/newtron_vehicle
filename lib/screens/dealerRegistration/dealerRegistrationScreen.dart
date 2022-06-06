@@ -3,6 +3,7 @@ import 'package:newtron_vehicle/network/response.dart';
 
 import '../../module/blocs/dealerListBloc.dart';
 import '../../module/modelClasses/dealerListModel.dart';
+import 'dealerRegistrationCreation.dart';
 
 class DealerScreen extends StatefulWidget {
   const DealerScreen({Key? key}) : super(key: key);
@@ -33,6 +34,16 @@ class _BatteryScreenState extends State<DealerScreen> {
             style: TextStyle(color: Colors.green[400]),
           ),
           elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DealerCreation()));
+                },
+                icon: const Icon(Icons.add))
+          ],
         ),
         body: StreamBuilder<Response<DealerList>>(
             stream: _bloc.dealerListDataStream,
@@ -49,19 +60,10 @@ class _BatteryScreenState extends State<DealerScreen> {
                     dealer = snapshot.data!.data;
                     return Stack(
                       children: [
-                        Positioned(
-                            left: 320,
-                            top: 5,
-                            child: TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  "Add",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ))),
                         Container(
-                          margin: const EdgeInsets.only(top: 40,),
+                          margin: const EdgeInsets.only(
+                            top: 40,
+                          ),
                           // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 40),
                           child: ListView.builder(
                               itemCount: dealer.data?.length,
@@ -95,13 +97,11 @@ class _BatteryScreenState extends State<DealerScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              dealer.data?[index]
-                                                      .dealer_name ??
+                                              dealer.data?[index].dealer_name ??
                                                   "",
                                               style: const TextStyle(
                                                   fontSize: 18,
-                                                  fontWeight:
-                                                      FontWeight.bold),
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                             const SizedBox(
                                               height: 10,
@@ -128,8 +128,8 @@ class _BatteryScreenState extends State<DealerScreen> {
                                           child: const Center(
                                               child: Text(
                                             "Delete",
-                                            style: TextStyle(
-                                                color: Colors.white),
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           )),
                                         ),
                                       ),
