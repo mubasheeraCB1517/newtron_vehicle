@@ -8,6 +8,7 @@ import 'package:newtron_vehicle/screens/vehicleRegistration/vehicleRgistrationSc
 import '../batteryDetails/batteryScreen.dart';
 import '../dealerRegistration/dealerRegistrationScreen.dart';
 import '../partsDetails/partsScreen.dart';
+import '../sparepartsBookingDetails/sparepartsBookingScreen.dart';
 import '../sparepartsDetails/sparepartsScreen.dart';
 import '../warrantyDeatils/warrantyDeatilsScreen.dart';
 
@@ -173,7 +174,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                        MaterialPageRoute(
                            builder: (context) =>
                            const PartsScreen()),
-                     );},
+                     );
+                      },
                   ),
                   ListTile(
                     title: Text(
@@ -234,7 +236,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[800]),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                        const SparePartsBookingScreen()),
+                  );
+                },
               ),
               ListTile(
                 title: Text(
