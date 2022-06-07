@@ -28,6 +28,7 @@ class _ColourCreationState extends State<PartsCreation> {
         backgroundColor: Colors.yellow[200],
         title: Text(
           "Parts",
+
           style: TextStyle(color: Colors.green[400]),
         ),
         elevation: 0,
@@ -40,7 +41,9 @@ class _ColourCreationState extends State<PartsCreation> {
             Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: const Text(
+
                   "Parts Name:",
+
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 )),
             TextFormField(

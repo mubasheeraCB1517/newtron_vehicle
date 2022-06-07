@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/screens/sparepartsDetails/sparepartsScreen.dart';
 
+import '../../module/modelClasses/partsListModel.dart';
+import '../../module/modelClasses/sparepartsListModel.dart';
+import '../../module/modelClasses/vehicleListModel.dart';
 import '../../module/repositotories/dealerCreationRepo.dart';
+import '../../module/repositotories/partsListRepo.dart';
+import '../../module/repositotories/spare_partsListRepo.dart';
 import '../../module/repositotories/sparepartsCreationRepo.dart';
-
+import '../../module/repositotories/vehicleListRepo.dart';
 
 class SparePartsCreation extends StatefulWidget {
   const SparePartsCreation({Key? key}) : super(key: key);
@@ -15,11 +20,36 @@ class SparePartsCreation extends StatefulWidget {
 class _ColourCreationState extends State<SparePartsCreation> {
   final vechicle_identification_num = TextEditingController();
   final motor_num = TextEditingController();
-  final vechicle_name = TextEditingController();
-  final customer_name= TextEditingController();
-  final parts_name= TextEditingController();
+  final customer_name = TextEditingController();
   final price = TextEditingController();
 
+  VehicleList _vehicleList = VehicleList();
+  String vehicleName = "";
+  String vehicleId = "";
+  List cusDealer = ["Dealer", "Customer"];
+  String cd = "Dealer";
+  PartsList _partsList = PartsList();
+  String partsName = "";
+  String partsId = "";
+
+  @override
+  void initState() {
+    super.initState();
+    VehicleListRepository().vehicleList().then((value) {
+      setState(() {
+        _vehicleList = value;
+        vehicleName = value.data[0].vechicle_name;
+        vehicleId = value.data[0].vechicle_id.toString();
+      });
+    });
+    PartsListRepository().partsList().then((value) {
+      setState(() {
+        _partsList = value;
+        partsName = value.data[0].parts;
+        partsId = value.data[0].parts_id.toString();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +95,7 @@ class _ColourCreationState extends State<SparePartsCreation> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
               TextFormField(
-                controller: motor_num ,
-
+                controller: motor_num,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
@@ -99,14 +128,34 @@ class _ColourCreationState extends State<SparePartsCreation> {
                     "Vechicle Name :",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
-              TextFormField(
-                controller: vechicle_name,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 55,
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25.0),
-                    borderSide: BorderSide(
-                      color: Colors.green[400]!,
-                    ),
+                    border: Border.all(color: Colors.grey)),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    items: _vehicleList.data?.map((item) {
+                      return DropdownMenuItem(
+                        value: item.vechicle_name,
+                        onTap: () {
+                          setState(() {
+                            vehicleId = item.vechicle_id.toString();
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(item.vechicle_name ?? ""),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        vehicleName = newValue.toString();
+                      });
+                    },
+                    value: vehicleName,
                   ),
                 ),
               ),
@@ -116,14 +165,34 @@ class _ColourCreationState extends State<SparePartsCreation> {
                     "Spare Parts:",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
-              TextFormField(
-                controller: parts_name,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 55,
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25.0),
-                    borderSide: BorderSide(
-                      color: Colors.green[400]!,
-                    ),
+                    border: Border.all(color: Colors.grey)),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    items: _partsList.data?.map((item) {
+                      return DropdownMenuItem(
+                        value: item.parts,
+                        onTap: () {
+                          setState(() {
+                            partsId = item.parts_id.toString();
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(item.parts ?? ""),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        partsName = newValue.toString();
+                      });
+                    },
+                    value: partsName,
                   ),
                 ),
               ),
@@ -144,7 +213,6 @@ class _ColourCreationState extends State<SparePartsCreation> {
                   ),
                 ),
               ),
-
               const SizedBox(
                 height: 40,
               ),
@@ -153,19 +221,19 @@ class _ColourCreationState extends State<SparePartsCreation> {
                   vechicle_identification_num.text.isEmpty == true &&
                       motor_num.text.isEmpty == true &&
                       customer_name.text.isEmpty == true &&
-                      vechicle_name.text.isEmpty == true &&
-                      parts_name.text.isEmpty == true &&
+                      vehicleId.isEmpty == true &&
+                      partsId.isEmpty == true &&
                       price.text.isEmpty == true;
+                  print("vehick=${vehicleId}");
 
                   SparePartsCreationRepository()
                       .sparepartsCreation(
                     vechicle_identification_num.text,
                     motor_num.text,
+                    vehicleId,
                     customer_name.text,
-                    vechicle_name.text,
-                    parts_name.text,
+                    partsId,
                     price.text,
-
                   )
                       .then((value) {
                     if (value["success"] == 1) {
@@ -181,7 +249,7 @@ class _ColourCreationState extends State<SparePartsCreation> {
                 },
                 child: Container(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                   decoration: BoxDecoration(
                     color: Colors.green[400],
                     borderRadius: BorderRadius.circular(15.0),
