@@ -9,7 +9,8 @@ import 'package:newtron_vehicle/screens/alertBox/alertBox.dart';
 import 'package:newtron_vehicle/screens/vehicleDetails/vehicleScreen.dart';
 
 class VehicleCreation extends StatefulWidget {
-  const VehicleCreation({Key? key}) : super(key: key);
+  const VehicleCreation({Key? key, this.vehicleDetails}) : super(key: key);
+ final  vehicleDetails;
 
   @override
   State<VehicleCreation> createState() => _VehicleCreationState();
@@ -41,14 +42,30 @@ class _VehicleCreationState extends State<VehicleCreation> {
       setState(() {
         _batteryList = value;
         batteryName = value.data[0].battery;
+        batteryId = value.data![0].battery_id.toString();
+        if(widget.vehicleDetails != null){
+          int index = value.data?.indexWhere((item) => item.battery == widget.vehicleDetails["battery_name"]);
+          batteryName = value.data?[index].battery;
+          batteryId = value.data![index].battery_id.toString();
+        }
       });
     });
     ModelListRepository().modelList().then((value) {
       setState(() {
         _modelList = value;
         modelName = value.data[0].model;
+        modelId = value.data![0].model_id.toString();
+        if(widget.vehicleDetails != null){
+          int index = value.data?.indexWhere((item) => item.model == widget.vehicleDetails["model_name"]);
+          modelName = value.data?[index].model;
+          modelId = value.data![index].model_id.toString();
+        }
       });
     });
+    if(widget.vehicleDetails != null){
+      vehicle_name.text = widget.vehicleDetails["vechicle_name"];
+      amount.text = widget.vehicleDetails["amount"];
+    }
   }
 
   @override
@@ -101,7 +118,6 @@ class _VehicleCreationState extends State<VehicleCreation> {
               child: DropdownButtonHideUnderline(
                 child: DropdownButton(
                   items: _modelList.data?.map((item) {
-                    modelId = _modelList.data![0].model_id.toString();
                     return DropdownMenuItem(
                       value: item.model,
                       onTap: () {
@@ -139,7 +155,6 @@ class _VehicleCreationState extends State<VehicleCreation> {
               child: DropdownButtonHideUnderline(
                 child: DropdownButton(
                   items: _batteryList.data?.map((item) {
-                    batteryId = _batteryList.data![0].battery_id.toString();
                     return DropdownMenuItem(
                       value: item.battery,
                       onTap: () {
@@ -190,7 +205,7 @@ class _VehicleCreationState extends State<VehicleCreation> {
                         batteryId.isNotEmpty == true
                     ? VehicleCreationRepository()
                         .vehicleCreation(
-                            vehicle_name.text, modelId, batteryId, amount.text)
+                            vehicle_name.text, modelId, batteryId, amount.text,widget.vehicleDetails != null ? widget.vehicleDetails["vechicle_id"].toString():"0")
                         .then((value) {
                         if (value["success"] == 1) {
                           Navigator.pop(context);
