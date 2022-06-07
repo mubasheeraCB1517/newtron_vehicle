@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/partsDetails/partsCreation.dart';
-
 import '../../module/blocs/partsListBloc.dart';
 import '../../module/modelClasses/partsListModel.dart';
 
@@ -65,7 +64,6 @@ class _BatteryScreenState extends State<PartsScreen> {
                           margin: const EdgeInsets.only(
                             top: 40,
                           ),
-                          // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 40),
                           child: ListView.builder(
                               itemCount: parts.data?.length,
                               itemBuilder: (context, index) {

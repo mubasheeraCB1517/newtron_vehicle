@@ -10,9 +10,12 @@ class PartsCreation extends StatefulWidget {
 }
 
 class _ColourCreationState extends State<PartsCreation> {
+  // ignore: non_constant_identifier_names
   final parts_name = TextEditingController();
   final specification = TextEditingController();
   final price = TextEditingController();
+
+  // ignore: non_constant_identifier_names
   final dealer_price = TextEditingController();
 
   @override
@@ -24,7 +27,8 @@ class _ColourCreationState extends State<PartsCreation> {
         centerTitle: true,
         backgroundColor: Colors.yellow[200],
         title: Text(
-          "Parts Add",
+          "Parts",
+
           style: TextStyle(color: Colors.green[400]),
         ),
         elevation: 0,
@@ -37,7 +41,9 @@ class _ColourCreationState extends State<PartsCreation> {
             Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: const Text(
-                  "PARTS NAME : ",
+
+                  "Parts Name:",
+
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 )),
             TextFormField(

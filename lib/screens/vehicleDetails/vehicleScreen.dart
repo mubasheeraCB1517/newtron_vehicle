@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/blocs/vehicleListBloc.dart';
 import 'package:newtron_vehicle/module/modelClasses/vehicleListModel.dart';
+import 'package:newtron_vehicle/module/repositotories/vehicleEditRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/vehicleDetails/vehicleCreation.dart';
 
@@ -65,74 +66,87 @@ class _VehicleScreenState extends State<VehicleScreen> {
                           child: ListView.builder(
                               itemCount: vehicles.data?.length,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 30),
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 1,
-                                          blurRadius: 1,
-                                          offset: const Offset(1,
-                                              1), // changes position of shadow
-                                        ),
-                                      ]),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              vehicles.data?[index]
-                                                  .vechicle_name ??
-                                                  "",
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18,
-                                                  fontWeight:
-                                                  FontWeight.bold),
-                                            ),
-                                            Text(
-                                              "₹${vehicles.data?[index]
-                                                  .amount ?? ""}",
-                                              style: TextStyle(
-                                                  color: Colors.red[900]),
-                                            ),
-                                          ]),
-                                      const SizedBox(
-                                        width: 50,
-                                      ),
-                                      GestureDetector(
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 5),
-                                          decoration: BoxDecoration(
-                                              color: Colors.green[400],
-                                              borderRadius:
-                                              BorderRadius.circular(5)),
-                                          child: const Center(
-                                              child: Text(
-                                                "Delete",
+                                return GestureDetector(
+                                  onTap: (){
+                                    VehicleEditRepository().vehicleEdit(vehicles.data![index].vechicle_id.toString()).then((value) {
+                                      if(value["success"] == 1){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>  VehicleCreation(vehicleDetails: value["data"],)),
+                                        );
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 30),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: const Offset(1,
+                                                1), // changes position of shadow
+                                          ),
+                                        ]),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                vehicles.data?[index]
+                                                    .vechicle_name ??
+                                                    "",
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                    FontWeight.bold),
+                                              ),
+                                              Text(
+                                                "₹${vehicles.data?[index]
+                                                    .amount ?? ""}",
                                                 style: TextStyle(
-                                                    color: Colors.white),
-                                              )),
+                                                    color: Colors.red[900]),
+                                              ),
+                                            ]),
+                                        const SizedBox(
+                                          width: 50,
                                         ),
-                                      ),
-                                    ],
+                                        GestureDetector(
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 5),
+                                            decoration: BoxDecoration(
+                                                color: Colors.green[400],
+                                                borderRadius:
+                                                BorderRadius.circular(5)),
+                                            child: const Center(
+                                                child: Text(
+                                                  "Delete",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                )),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               }),
