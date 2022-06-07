@@ -37,7 +37,7 @@ class _ColourCreationState extends State<BatteryCreation> {
             Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: const Text(
-                  "Parts Name:",
+                  "Battery Name :",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 )),
             TextFormField(
