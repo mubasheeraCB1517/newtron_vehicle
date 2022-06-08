@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newtron_vehicle/screens/sparepartsDetails/sparepartsScreen.dart';
 
 import '../../module/modelClasses/partsListModel.dart';
@@ -9,10 +10,11 @@ import '../../module/repositotories/partsListRepo.dart';
 import '../../module/repositotories/spare_partsListRepo.dart';
 import '../../module/repositotories/sparepartsCreationRepo.dart';
 import '../../module/repositotories/vehicleListRepo.dart';
+import '../alertBox/alertBox.dart';
 
 class SparePartsCreation extends StatefulWidget {
-  const SparePartsCreation({Key? key}) : super(key: key);
-
+  const SparePartsCreation({Key? key,this.spareDetails}) : super(key: key);
+ final spareDetails;
   @override
   State<SparePartsCreation> createState() => _ColourCreationState();
 }
@@ -40,6 +42,11 @@ class _ColourCreationState extends State<SparePartsCreation> {
         _vehicleList = value;
         vehicleName = value.data[0].vechicle_name;
         vehicleId = value.data[0].vechicle_id.toString();
+        if(widget.spareDetails != null){
+          int index = value.data?.indexWhere((item) => item.battery == widget.spareDetails["vehicle_name"]);
+          vehicleName = value.data?[index].battery;
+          vehicleId = value.data![index].battery_id.toString();
+        }
       });
     });
     PartsListRepository().partsList().then((value) {
@@ -47,8 +54,21 @@ class _ColourCreationState extends State<SparePartsCreation> {
         _partsList = value;
         partsName = value.data[0].parts;
         partsId = value.data[0].parts_id.toString();
-      });
+        if(widget.spareDetails != null){
+          int index = value.data?.indexWhere((item) => item.battery == widget.spareDetails["parts_name"]);
+          partsName = value.data?[index].battery;
+          partsId = value.data![index].battery_id.toString();
+        }
+
+      }
+      );
     });
+    if(widget.spareDetails != null){
+      vechicle_identification_num.text = widget.spareDetails["vechicle_name"];
+      motor_num.text = widget.spareDetails["amount"];
+      customer_name .text = widget.spareDetails["amount"];
+      price.text = widget.spareDetails["amount"];
+    }
   }
 
   @override
@@ -223,19 +243,17 @@ class _ColourCreationState extends State<SparePartsCreation> {
                       customer_name.text.isEmpty == true &&
                       vehicleId.isEmpty == true &&
                       partsId.isEmpty == true &&
-                      price.text.isEmpty == true;
-                  print("vehick=${vehicleId}");
+                      price.text.isEmpty == true
 
-                  SparePartsCreationRepository()
+                  ?SparePartsCreationRepository()
                       .sparepartsCreation(
                     vechicle_identification_num.text,
                     motor_num.text,
                     vehicleId,
                     customer_name.text,
                     partsId,
-                    price.text,
-                  )
-                      .then((value) {
+                    price.text,widget.spareDetails !=null?widget.spareDetails["spare_id"].toString():"0"
+                  ).then((value) {
                     if (value["success"] == 1) {
                       Navigator.pop(context);
                       Navigator.pop(context);
@@ -244,8 +262,19 @@ class _ColourCreationState extends State<SparePartsCreation> {
                         MaterialPageRoute(
                             builder: (context) => const SparePartsScreen()),
                       );
-                    } else {}
-                  });
+                    }else {
+                      const AlertBox(
+                        title: "Oh!",
+                        image: "assets/images/warning.png",
+                        content: "Something went wrong",
+                      );
+                    }
+                  })
+                  : Fluttertoast.showToast(
+                  msg: "Please fill all the fields",
+                  gravity: ToastGravity.BOTTOM,
+                  toastLength: Toast.LENGTH_SHORT,
+                  );
                 },
                 child: Container(
                   padding:

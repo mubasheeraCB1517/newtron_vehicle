@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newtron_vehicle/screens/partsDetails/partsScreen.dart';
 import '../../module/repositotories/partsCreationRepo.dart';
+import '../alertBox/alertBox.dart';
 
 class PartsCreation extends StatefulWidget {
-  const PartsCreation({Key? key}) : super(key: key);
-
+  const PartsCreation({Key? key,this.partsDetails}) : super(key: key);
+ final partsDetails;
   @override
   State<PartsCreation> createState() => _ColourCreationState();
 }
@@ -17,6 +19,16 @@ class _ColourCreationState extends State<PartsCreation> {
 
   // ignore: non_constant_identifier_names
   final dealer_price = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    if(widget.partsDetails != null){
+      parts_name .text = widget.partsDetails["parts_name"];
+      specification.text = widget.partsDetails["specification"];
+      price.text = widget.partsDetails["price"];
+      dealer_price.text = widget.partsDetails["dealer_price"];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,10 +129,10 @@ class _ColourCreationState extends State<PartsCreation> {
                 parts_name.text.isEmpty == true &&
                     specification.text.isEmpty == true &&
                     price.text.isEmpty == true &&
-                    dealer_price.text.isEmpty == true;
-                PartsCreationRepository()
+                    dealer_price.text.isEmpty == true
+                ?PartsCreationRepository()
                     .partsCreation(parts_name.text, specification.text,
-                        price.text, dealer_price.text)
+                        price.text, dealer_price.text,widget.partsDetails !=null ? widget.partsDetails["parts_id"].toString():"0")
                     .then((value) {
                   if (value["success"] == 1) {
                     Navigator.pop(context);
@@ -130,8 +142,19 @@ class _ColourCreationState extends State<PartsCreation> {
                       MaterialPageRoute(
                           builder: (context) => const PartsScreen()),
                     );
-                  } else {}
-                });
+                  } else {
+                    const AlertBox(
+                      title: "Oh!",
+                      image: "assets/images/warning.png",
+                      content: "Something went wrong",
+                    );
+                  }
+                })
+                : Fluttertoast.showToast(
+                msg: "Please fill all the fields",
+                gravity: ToastGravity.BOTTOM,
+                toastLength: Toast.LENGTH_SHORT,
+                );
               },
               child: Container(
                 padding:

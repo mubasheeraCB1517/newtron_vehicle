@@ -3,6 +3,7 @@ import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/partsDetails/partsCreation.dart';
 import '../../module/blocs/partsListBloc.dart';
 import '../../module/modelClasses/partsListModel.dart';
+import '../../module/repositotories/partsEditRepo.dart';
 
 class PartsScreen extends StatefulWidget {
   const PartsScreen({Key? key}) : super(key: key);
@@ -69,10 +70,15 @@ class _BatteryScreenState extends State<PartsScreen> {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: (){
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => const PartsCreation()));
+                                    PartsEditRepository().partsEdit(parts.data![index].parts_id.toString()).then((value) {
+                                      if(value["success"] == 1){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>  PartsCreation(partsDetails: value["data"],)),
+                                        );
+                                      }
+                                    });
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
