@@ -63,7 +63,7 @@ class _BatteryScreenState extends State<PartsScreen> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(
-                            top: 40,
+                            top: 20,
                           ),
                           child: ListView.builder(
                               itemCount: parts.data?.length,
@@ -110,21 +110,18 @@ class _BatteryScreenState extends State<PartsScreen> {
                                             children: [
                                               Text(
                                                 parts.data?[index]
-                                                        .vechicle_name ??
+                                                        .parts ??
                                                     "",
                                                 style: const TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold),
                                               ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
+
                                               Text(
                                                 "${parts.data?[index].specification ?? ""}",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red),
+                                                    color: Colors.red[900]!),
                                               ),
                                             ]),
                                         const SizedBox(

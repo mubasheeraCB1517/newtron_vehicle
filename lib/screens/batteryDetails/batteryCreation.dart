@@ -20,7 +20,7 @@ class _ColourCreationState extends State<BatteryCreation> {
   void initState() {
     super.initState();
     if(widget.batteryDetails != null){
-      battery_name .text = widget.batteryDetails["battery_name "].toString();
+      battery_name .text = widget.batteryDetails["battery_name"].toString();
       specification.text = widget.batteryDetails["specification"].toString();
       price.text = widget.batteryDetails["price"].toString();
       dealer_price.text = widget.batteryDetails["dealer_price"].toString();
@@ -119,10 +119,10 @@ class _ColourCreationState extends State<BatteryCreation> {
             ),
             GestureDetector(
               onTap: () {
-                battery_name.text.isEmpty == true &&
-                    specification.text.isEmpty == true &&
-                    price.text.isEmpty == true &&
-                    dealer_price.text.isEmpty == true
+                battery_name.text.isNotEmpty == true &&
+                    specification.text.isNotEmpty == true &&
+                    price.text.isNotEmpty == true &&
+                    dealer_price.text.isNotEmpty == true
                 ?BatteryCreationRepository()
                     .batteryCreation(battery_name.text, specification.text,
                         price.text, dealer_price.text,widget.batteryDetails !=null?widget.batteryDetails["battery_id"].toString():"0")

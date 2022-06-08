@@ -5,7 +5,8 @@ import 'package:newtron_vehicle/screens/alertBox/alertBox.dart';
 import 'package:newtron_vehicle/screens/modelDetails/modelScreen.dart';
 
 class ModelCreation extends StatefulWidget {
-  const ModelCreation({Key? key}) : super(key: key);
+  const ModelCreation({Key? key, this.modelDetails}) : super(key: key);
+  final modelDetails;
 
   @override
   State<ModelCreation> createState() => _ModelCreationState();
@@ -24,6 +25,18 @@ class _ModelCreationState extends State<ModelCreation> {
 
   // ignore: non_constant_identifier_names
   final dealer_price = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.modelDetails != null){
+      model_name.text = widget.modelDetails["model_name"] ?? "";
+      vehicle_name.text = widget.modelDetails["vechicle_name"] ?? "";
+      specification.text = widget.modelDetails["specification"] ?? "";
+      price.text = widget.modelDetails["price"] ?? "";
+      dealer_price.text = widget.modelDetails["dealer_price"] ?? "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +155,7 @@ class _ModelCreationState extends State<ModelCreation> {
                         dealer_price.text.isNotEmpty == true
                     ? ModelCreationRepository()
                         .modelCreation(model_name.text, vehicle_name.text,
-                            specification.text, price.text, dealer_price.text)
+                            specification.text, price.text, dealer_price.text,widget.modelDetails != null?widget.modelDetails["model_id"].toString():"0")
                         .then((value) {
                         if (value["success"] == 1) {
                           Navigator.pop(context);

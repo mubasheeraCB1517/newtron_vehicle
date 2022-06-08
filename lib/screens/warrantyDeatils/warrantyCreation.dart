@@ -7,8 +7,8 @@ import 'package:newtron_vehicle/screens/alertBox/alertBox.dart';
 import 'package:newtron_vehicle/screens/warrantyDeatils/warrantyDeatilsScreen.dart';
 
 class WarrantyCreation extends StatefulWidget {
-  const WarrantyCreation({Key? key}) : super(key: key);
-
+  const WarrantyCreation({Key? key, this.warrentyDetails}) : super(key: key);
+final warrentyDetails;
   @override
   State<WarrantyCreation> createState() => _WarrantyCreationState();
 }
@@ -56,6 +56,26 @@ class _WarrantyCreationState extends State<WarrantyCreation> {
         _vehicleList = value;
         vehicleName = value.data[0].vechicle_name;
         vehicleId = value.data[0].vechicle_id.toString();
+        if(widget.warrentyDetails != null){
+
+          int index = value.data?.indexWhere((item) => item.vechicle_name == widget.warrentyDetails["vechicle_name"]);
+          vehicleName = value.data?[index].vechicle_name;
+          vehicleId = value.data![index].vechicle_id.toString();
+          print("vehicleId==${index}");
+          identification_number.text = widget.warrentyDetails["vechicle_identification_num"];
+          claim_date.text = widget.warrentyDetails["claim_date"];
+          customer_name.text = widget.warrentyDetails["customer_name"];
+          customer_number.text = widget.warrentyDetails["customer_no"];
+          customer_email.text = widget.warrentyDetails["customer_email"];
+          dealer_name.text = widget.warrentyDetails["dealer_name"];
+          dealer_number.text = widget.warrentyDetails["dealer_no"];
+          dealer_email.text = widget.warrentyDetails["dealer_email"];
+          comment_box.text = widget.warrentyDetails["complaint"];
+        }
+        if(widget.warrentyDetails != null){
+          int index = cusDealer.indexWhere((item) => item == widget.warrentyDetails["cd"]);
+          cd = cusDealer[index];
+        }
       });
     });
   }
@@ -356,7 +376,8 @@ class _WarrantyCreationState extends State<WarrantyCreation> {
                               dealer_name.text,
                               dealer_number.text,
                               dealer_email.text,
-                              comment_box.text)
+                              comment_box.text,
+                  widget.warrentyDetails != null ? widget.warrentyDetails["id"].toString():"0")
                           .then((value) {
                           if (value["success"] == 1) {
                             Navigator.pop(context);

@@ -62,7 +62,7 @@ class _BatteryScreenState extends State<DealerScreen> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(
-                            top: 40,
+                            top: 20,
                           ),
                           // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 40),
                           child: ListView.builder(
@@ -103,15 +103,12 @@ class _BatteryScreenState extends State<DealerScreen> {
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
+
                                             Text(
                                               "${dealer.data?[index].contact_no ?? ""}",
-                                              style: const TextStyle(
+                                              style:TextStyle(
                                                   fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.red),
+                                                  color: Colors.red[900]),
                                             ),
                                           ]),
                                       const SizedBox(
