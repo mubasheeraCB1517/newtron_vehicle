@@ -56,13 +56,8 @@ class _BatteryScreenState extends State<SparePartsBookingScreen> {
                     return Stack(
                       children: [
 
-                        Positioned(
-                            left: 320,
-                            top: 5,
-                            child:  TextButton(onPressed: (){}, child: const Text("Add",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),))),
                         Container(
-                          margin: const EdgeInsets.only(top: 40,),
-                          // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 40),
+                          margin: const EdgeInsets.only(top: 20,),
                           child: ListView.builder(
                               itemCount: spareparts.data?.length,
                               itemBuilder: (context, index) {
@@ -98,10 +93,10 @@ class _BatteryScreenState extends State<SparePartsBookingScreen> {
                                             Text(spareparts.data?[index]
                                                 .customer_name??
                                                 "",style: const TextStyle(fontSize:18,fontWeight: FontWeight.bold),),
-                                            const SizedBox(height: 10,),
+
                                             Text(
                                               "${spareparts.data?[index]
-                                                  .vechicle_name ?? ""}",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.red),),
+                                                  .vechicle_name ?? ""}",style:  TextStyle(fontSize: 15,color: Colors.red[900]),),
                                           ]),
                                       const SizedBox(
                                         width: 10,
@@ -118,7 +113,7 @@ class _BatteryScreenState extends State<SparePartsBookingScreen> {
                                               BorderRadius.circular(5)),
                                           child: const Center(
                                               child: Text(
-                                                "Delete",
+                                                "Enquery Pending",
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               )),

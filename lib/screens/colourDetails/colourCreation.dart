@@ -5,7 +5,8 @@ import 'package:newtron_vehicle/screens/alertBox/alertBox.dart';
 import 'package:newtron_vehicle/screens/colourDetails/colourScreen.dart';
 
 class ColourCreation extends StatefulWidget {
-  const ColourCreation({Key? key}) : super(key: key);
+  const ColourCreation({Key? key, this.colorDetails}) : super(key: key);
+  final colorDetails;
 
   @override
   State<ColourCreation> createState() => _ColourCreationState();
@@ -19,6 +20,16 @@ class _ColourCreationState extends State<ColourCreation> {
 
   // ignore: non_constant_identifier_names
   final dealer_price = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    if(widget.colorDetails != null){
+      color_name.text = widget.colorDetails["color_name"] ?? "";
+      specification.text = widget.colorDetails["specification"] ?? "";
+      price.text = widget.colorDetails["price"] ?? "";
+      dealer_price.text = widget.colorDetails["dealer_price"] ?? "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +130,7 @@ class _ColourCreationState extends State<ColourCreation> {
                         dealer_price.text.isNotEmpty == true
                     ? ColorCreationRepository()
                         .colorCreation(color_name.text, specification.text,
-                            price.text, dealer_price.text)
+                            price.text, dealer_price.text,widget.colorDetails != null ?widget.colorDetails["color_id"].toString():"0")
                         .then((value) {
                         if (value["success"] == 1) {
                           Navigator.pop(context);

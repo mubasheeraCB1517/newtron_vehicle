@@ -126,13 +126,13 @@ class _ColourCreationState extends State<PartsCreation> {
             ),
             GestureDetector(
               onTap: () {
-                parts_name.text.isEmpty == true &&
-                    specification.text.isEmpty == true &&
-                    price.text.isEmpty == true &&
-                    dealer_price.text.isEmpty == true
+                parts_name.text.isNotEmpty == true &&
+                    specification.text.isNotEmpty == true &&
+                    price.text.isNotEmpty == true &&
+                    dealer_price.text.isNotEmpty == true
                 ?PartsCreationRepository()
                     .partsCreation(parts_name.text, specification.text,
-                        price.text, dealer_price.text,widget.partsDetails !=null ? widget.partsDetails["parts_id"].toString():"0")
+                        price.text, dealer_price.text,widget.partsDetails !=  null ? widget.partsDetails["parts_id"].toString():"0")
                     .then((value) {
                   if (value["success"] == 1) {
                     Navigator.pop(context);

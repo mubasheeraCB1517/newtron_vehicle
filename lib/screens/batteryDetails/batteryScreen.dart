@@ -63,7 +63,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(
-                            top: 40,
+                            top: 20,
                           ),
                           child: ListView.builder(
                               itemCount: battery.data?.length,
@@ -115,15 +115,12 @@ class _BatteryScreenState extends State<BatteryScreen> {
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold),
                                               ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
+
                                               Text(
                                                 "₹${battery.data?[index].dealer_price ?? ""}",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red),
+                                                    color: Colors.red[900]),
                                               ),
                                             ]),
                                         const SizedBox(
