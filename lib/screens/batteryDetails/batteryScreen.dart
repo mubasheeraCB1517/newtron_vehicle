@@ -3,6 +3,7 @@ import 'package:newtron_vehicle/network/response.dart';
 
 import '../../module/blocs/batteryListBloc.dart';
 import '../../module/modelClasses/batteryListModel.dart';
+import '../../module/repositotories/batteryDeleteRepo.dart';
 import '../../module/repositotories/batteryEditRepo.dart';
 import 'batteryCreation.dart';
 
@@ -63,7 +64,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(
-                            top: 20,
+                            top: 40,
                           ),
                           child: ListView.builder(
                               itemCount: battery.data?.length,
@@ -115,18 +116,34 @@ class _BatteryScreenState extends State<BatteryScreen> {
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold),
                                               ),
-
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
                                               Text(
-                                                "₹${battery.data?[index].dealer_price ?? ""}",
-                                                style: TextStyle(
+                                                "₹${battery.data?[index].dealer_price ??""}",
+                                                style: const TextStyle(
                                                     fontSize: 15,
-                                                    color: Colors.red[900]),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red),
                                               ),
                                             ]),
                                         const SizedBox(
                                           width: 10,
                                         ),
                                         GestureDetector(
+                                          onTap: (){
+                                            BatteryDeleteRepository().batterydelete(battery.data![index].battery_id.toString()).then((value) {
+                                              if(value["success"] == 1){
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>  const BatteryScreen()),
+                                                );
+                                              }
+                                            });
+                                          },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 5),

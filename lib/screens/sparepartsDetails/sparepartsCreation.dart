@@ -13,8 +13,9 @@ import '../../module/repositotories/vehicleListRepo.dart';
 import '../alertBox/alertBox.dart';
 
 class SparePartsCreation extends StatefulWidget {
-  const SparePartsCreation({Key? key,this.spareDetails}) : super(key: key);
- final spareDetails;
+  const SparePartsCreation({Key? key, this.spareDetails}) : super(key: key);
+  final spareDetails;
+
   @override
   State<SparePartsCreation> createState() => _ColourCreationState();
 }
@@ -42,10 +43,11 @@ class _ColourCreationState extends State<SparePartsCreation> {
         _vehicleList = value;
         vehicleName = value.data[0].vechicle_name;
         vehicleId = value.data[0].vechicle_id.toString();
-        if(widget.spareDetails != null){
-          int index = value.data?.indexWhere((item) => item.battery == widget.spareDetails["vehicle_name"]);
-          vehicleName = value.data?[index].battery;
-          vehicleId = value.data![index].battery_id.toString();
+        if (widget.spareDetails != null) {
+          int index = value.data?.indexWhere((item) =>
+              item.vechicle_name == widget.spareDetails["vechicle_name"]);
+          vehicleName = value.data?[index].vechicle_name;
+          vehicleId = value.data![index].vechicle_id.toString();
         }
       });
     });
@@ -54,20 +56,20 @@ class _ColourCreationState extends State<SparePartsCreation> {
         _partsList = value;
         partsName = value.data[0].parts;
         partsId = value.data[0].parts_id.toString();
-        if(widget.spareDetails != null){
-          int index = value.data?.indexWhere((item) => item.battery == widget.spareDetails["parts_name"]);
-          partsName = value.data?[index].battery;
-          partsId = value.data![index].battery_id.toString();
+        if (widget.spareDetails != null) {
+          int index = value.data?.indexWhere(
+              (item) => item.parts == widget.spareDetails["parts_name"]);
+          partsName = value.data?[index].parts;
+          partsId = value.data![index].parts_id.toString();
         }
-
-      }
-      );
+      });
     });
-    if(widget.spareDetails != null){
-      vechicle_identification_num.text = widget.spareDetails["vechicle_name"];
-      motor_num.text = widget.spareDetails["amount"];
-      customer_name .text = widget.spareDetails["amount"];
-      price.text = widget.spareDetails["amount"];
+    if (widget.spareDetails != null) {
+      vechicle_identification_num.text =
+          widget.spareDetails['vechicle_identification_num'];
+      motor_num.text = widget.spareDetails['motor_num'];
+      customer_name.text = widget.spareDetails['customer_name'];
+      price.text = widget.spareDetails['price'];
     }
   }
 
@@ -145,7 +147,7 @@ class _ColourCreationState extends State<SparePartsCreation> {
               Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: const Text(
-                    "Vechicle Name :",
+                    "Vehicle Name :",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
               Container(
@@ -239,42 +241,45 @@ class _ColourCreationState extends State<SparePartsCreation> {
               GestureDetector(
                 onTap: () {
                   vechicle_identification_num.text.isEmpty == true &&
-                      motor_num.text.isEmpty == true &&
-                      customer_name.text.isEmpty == true &&
-                      vehicleId.isEmpty == true &&
-                      partsId.isEmpty == true &&
-                      price.text.isEmpty == true
-
-                  ?SparePartsCreationRepository()
-                      .sparepartsCreation(
-                    vechicle_identification_num.text,
-                    motor_num.text,
-                    vehicleId,
-                    customer_name.text,
-                    partsId,
-                    price.text,widget.spareDetails !=null?widget.spareDetails["spare_id"].toString():"0"
-                  ).then((value) {
-                    if (value["success"] == 1) {
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SparePartsScreen()),
-                      );
-                    }else {
-                      const AlertBox(
-                        title: "Oh!",
-                        image: "assets/images/warning.png",
-                        content: "Something went wrong",
-                      );
-                    }
-                  })
-                  : Fluttertoast.showToast(
-                  msg: "Please fill all the fields",
-                  gravity: ToastGravity.BOTTOM,
-                  toastLength: Toast.LENGTH_SHORT,
-                  );
+                          motor_num.text.isEmpty == true &&
+                          customer_name.text.isEmpty == true &&
+                          vehicleId.isEmpty == true &&
+                          partsId.isEmpty == true &&
+                          price.text.isEmpty == true
+                      ? SparePartsCreationRepository()
+                          .sparepartsCreation(
+                              vechicle_identification_num.text,
+                              motor_num.text,
+                              vehicleId,
+                              customer_name.text,
+                              partsId,
+                              price.text,
+                              widget.spareDetails != null
+                                  ? widget.spareDetails["spare_id"].toString()
+                                  : "0")
+                          .then((value) {
+                          if (value["success"] == 1) {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SparePartsScreen()),
+                            );
+                          } else {
+                            const AlertBox(
+                              title: "Oh!",
+                              image: "assets/images/warning.png",
+                              content: "Something went wrong",
+                            );
+                          }
+                        })
+                      : Fluttertoast.showToast(
+                          msg: "Please fill all the fields",
+                          gravity: ToastGravity.BOTTOM,
+                          toastLength: Toast.LENGTH_SHORT,
+                        );
                 },
                 child: Container(
                   padding:

@@ -63,23 +63,29 @@ class _BatteryScreenState extends State<SparePartsScreen> {
 
                     return Stack(
                       children: [
-
                         Container(
                           margin: const EdgeInsets.only(
-                            top: 20,
+                            top: 40,
                           ),
                           // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 40),
                           child: ListView.builder(
                               itemCount: spare.data?.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
-                                    SparePartsEditRepository().sparepartsEdit(spare.data![index].spare_id.toString()).then((value) {
-                                      if(value["success"] == 1){
+                                  onTap: () {
+                                    SparePartsEditRepository()
+                                        .sparepartsEdit(spare
+                                            .data![index].spare_id
+                                            .toString())
+                                        .then((value) {
+                                      if (value["success"] == 1) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>  SparePartsCreation(spareDetails: value["data"],)),
+                                              builder: (context) =>
+                                                  SparePartsCreation(
+                                                    spareDetails: value["data"],
+                                                  )),
                                         );
                                       }
                                     });
@@ -118,20 +124,25 @@ class _BatteryScreenState extends State<SparePartsScreen> {
                                                     "",
                                                 style: const TextStyle(
                                                     fontSize: 18,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
-
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
                                               Text(
-                                                "${spare.data?[index].customer_name ?? ""}",
-                                                style:  TextStyle(
+                                                "${spare.data?[index].parts_name ?? ""}",
+                                                style: const TextStyle(
                                                     fontSize: 15,
-                                                    color: Colors.red[900]),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red),
                                               ),
                                             ]),
                                         const SizedBox(
                                           width: 10,
                                         ),
                                         GestureDetector(
+                                          onTap: () {},
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 5),
@@ -142,8 +153,8 @@ class _BatteryScreenState extends State<SparePartsScreen> {
                                             child: const Center(
                                                 child: Text(
                                               "Delete",
-                                              style:
-                                                  TextStyle(color: Colors.white),
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             )),
                                           ),
                                         ),
@@ -159,9 +170,9 @@ class _BatteryScreenState extends State<SparePartsScreen> {
                     return Container(
                       decoration: const BoxDecoration(
                           image: DecorationImage(
-                              image: AssetImage("assest/images/error.png"),fit: BoxFit.fill,
-                          )
-                      ),
+                        image: AssetImage("assest/images/error.png"),
+                        fit: BoxFit.fill,
+                      )),
                     );
                   case Status.COMPLETED:
                     // TODO: Handle this case.

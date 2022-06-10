@@ -18,7 +18,7 @@ class SparePartsList {
         data['message'] = this.message;
         data['success'] = this.success;
         if (this.data != null) {
-            data['`data`'] = this.data!.map((v) => v.toJson()).toList();
+            data['data'] = this.data!.map((v) => v.toJson()).toList();
         }
         return data;
     }
@@ -29,10 +29,11 @@ class Data {
     String? motor_num;
     String? parts_name;
     String? price;
+    int? spare_id;
     String? vechicle_identification_num;
     String? vechicle_name;
 
-    Data({this.customer_name, this.motor_num, this.parts_name, this.price, this.vechicle_identification_num, this.vechicle_name});
+    Data({this.customer_name,this.motor_num,this.parts_name,this.price,this.spare_id,this.vechicle_identification_num,this.vechicle_name});
 
     factory Data.fromJson(Map<String, dynamic> json) {
         return Data(
@@ -40,6 +41,7 @@ class Data {
             motor_num: json['motor_num'],
             parts_name: json['parts_name'],
             price: json['price'],
+            spare_id: json['spare_id'],
             vechicle_identification_num: json['vechicle_identification_num'],
             vechicle_name: json['vechicle_name'],
         );
@@ -51,6 +53,7 @@ class Data {
         data['motor_num'] = this.motor_num;
         data['parts_name'] = this.parts_name;
         data['price'] = this.price;
+        data['spare_id'] = this.spare_id;
         data['vechicle_identification_num'] = this.vechicle_identification_num;
         data['vechicle_name'] = this.vechicle_name;
         return data;
