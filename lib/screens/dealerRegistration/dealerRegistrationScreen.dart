@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newtron_vehicle/module/repositotories/dealerDeletionRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
 
 import '../../module/blocs/dealerListBloc.dart';
@@ -115,6 +116,18 @@ class _BatteryScreenState extends State<DealerScreen> {
                                         width: 10,
                                       ),
                                       GestureDetector(
+                                        onTap: (){
+                                          DealerDeleteRepository().dealerDelete(dealer.data![index].id.toString()).then((value) {
+                                            if(value["success"] == 1){
+                                              Navigator.of(context).pop();
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>  const DealerScreen()),
+                                              );
+                                            }
+                                          });
+                                        },
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 5),

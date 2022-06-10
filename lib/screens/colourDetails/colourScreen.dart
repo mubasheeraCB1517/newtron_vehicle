@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/blocs/colourListBloc.dart';
 import 'package:newtron_vehicle/module/modelClasses/colourListModel.dart';
+import 'package:newtron_vehicle/module/repositotories/colorDeleteRepo.dart';
 import 'package:newtron_vehicle/module/repositotories/colorEditRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/colourDetails/colourCreation.dart';
@@ -124,6 +125,18 @@ class _ColourScreenState extends State<ColourScreen> {
                                           width: 50,
                                         ),
                                         GestureDetector(
+                                          onTap: (){
+                                            ColorDeleteRepository().colorDelete(colours.data![index].color_id.toString()).then((value) {
+                                              if(value["success"] == 1){
+                                                Navigator.of(context).pop();
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>  ColourScreen()),
+                                                );
+                                              }
+                                            });
+                                          },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 5),

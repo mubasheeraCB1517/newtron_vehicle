@@ -1,12 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:newtron_vehicle/network/response.dart';
 
+import 'package:flutter/material.dart';
+import 'package:newtron_vehicle/module/repositotories/sparePartbookingEnquiryRepo.dart';
+import 'package:newtron_vehicle/network/response.dart';
 import '../../module/blocs/sparepartsBookingListBloc.dart';
 import '../../module/modelClasses/sparepartsBookingLIstModel.dart';
-
-
-
-
 
 class SparePartsBookingScreen extends StatefulWidget {
   const SparePartsBookingScreen({Key? key}) : super(key: key);
@@ -16,6 +13,7 @@ class SparePartsBookingScreen extends StatefulWidget {
 }
 
 class _BatteryScreenState extends State<SparePartsBookingScreen> {
+
   late SparePartsBookingList spareparts;
   late SparePartsBookingListBloc _bloc;
 
@@ -55,7 +53,6 @@ class _BatteryScreenState extends State<SparePartsBookingScreen> {
                     spareparts = snapshot.data!.data;
                     return Stack(
                       children: [
-
                         Container(
                           margin: const EdgeInsets.only(top: 20,),
                           child: ListView.builder(
@@ -82,8 +79,6 @@ class _BatteryScreenState extends State<SparePartsBookingScreen> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                     children: [
-
-
                                       Column(
                                           mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -93,7 +88,6 @@ class _BatteryScreenState extends State<SparePartsBookingScreen> {
                                             Text(spareparts.data?[index]
                                                 .customer_name??
                                                 "",style: const TextStyle(fontSize:18,fontWeight: FontWeight.bold),),
-
                                             Text(
                                               "${spareparts.data?[index]
                                                   .vechicle_name ?? ""}",style:  TextStyle(fontSize: 15,color: Colors.red[900]),),
@@ -102,8 +96,18 @@ class _BatteryScreenState extends State<SparePartsBookingScreen> {
                                         width: 10,
                                       ),
                                       GestureDetector(
-
-
+                                        onTap: (){
+                                          SparePartsEnquiryRepository().sparePartEnquiry(spareparts.data?[index].spare_id).then((value) {
+                                            if(value["success"] == 1){
+                                              Navigator.of(context).pop();
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>  SparePartsBookingScreen()),
+                                              );
+                                            }
+                                          });
+                                        },
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 5),
@@ -119,7 +123,6 @@ class _BatteryScreenState extends State<SparePartsBookingScreen> {
                                               )),
                                         ),
                                       ),
-
                                     ],
                                   ),
                                 );
