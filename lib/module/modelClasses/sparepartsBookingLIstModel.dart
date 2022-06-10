@@ -32,9 +32,10 @@ class Data {
   String? price;
   String? vechicle_identification_num;
   String? vechicle_name;
+  String? spare_id;
 
   Data(
-      {this.customer_name, this.motor_num, this.parts_name, this.price, this.vechicle_identification_num, this.vechicle_name});
+      {this.customer_name, this.motor_num, this.parts_name, this.price, this.vechicle_identification_num, this.vechicle_name,this.spare_id});
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
@@ -44,6 +45,7 @@ class Data {
       price: json['price'],
       vechicle_identification_num: json['vechicle_identification_num'],
       vechicle_name: json['vechicle_name'],
+      spare_id: json['spare_id'].toString()
     );
   }
 
@@ -55,6 +57,7 @@ class Data {
     data['price'] = this.price;
     data['vechicle_identification_num'] = this.vechicle_identification_num;
     data['vechicle_name'] = this.vechicle_name;
+    data['spare_id'] = this.spare_id;
     return data;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/blocs/modelListBloc.dart';
 import 'package:newtron_vehicle/module/modelClasses/modelListModel.dart';
+import 'package:newtron_vehicle/module/repositotories/modelDeleteRepo.dart';
 import 'package:newtron_vehicle/module/repositotories/modelEditRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/modelDetails/modelCreation.dart';
@@ -123,6 +124,18 @@ class _ModelScreenState extends State<ModelScreen> {
                                           width: 50,
                                         ),
                                         GestureDetector(
+                                          onTap: (){
+                                            ModelDeleteRepository().modelDelete(models.data![index].model_id.toString()).then((value) {
+                                              if(value["success"] == 1){
+                                                Navigator.of(context).pop();
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>  ModelScreen()),
+                                                );
+                                              }
+                                            });
+                                          },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 5),

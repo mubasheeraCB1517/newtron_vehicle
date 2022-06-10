@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newtron_vehicle/module/repositotories/sparePartsDeletionRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/sparepartsDetails/sparepartsCreation.dart';
 
@@ -142,7 +143,20 @@ class _BatteryScreenState extends State<SparePartsScreen> {
                                           width: 10,
                                         ),
                                         GestureDetector(
-                                          onTap: () {},
+
+                                        
+                                          onTap: (){
+                                            SparePartsDeleteRepository().sparePartsDelete(spare.data![index].spare_id.toString()).then((value) {
+                                              if(value["success"] == 1){
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>  SparePartsScreen()),
+                                                );
+                                              }
+                                            });
+                                          },
+
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 5),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/blocs/vehicleListBloc.dart';
 import 'package:newtron_vehicle/module/modelClasses/vehicleListModel.dart';
+import 'package:newtron_vehicle/module/repositotories/vehicleDeletionRepo.dart';
 import 'package:newtron_vehicle/module/repositotories/vehicleEditRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/vehicleDetails/vehicleCreation.dart';
@@ -130,6 +131,18 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                           width: 50,
                                         ),
                                         GestureDetector(
+                                          onTap: (){
+                                            VehicleDeleteRepository().vehicleDelete(vehicles.data![index].vechicle_id.toString()).then((value) {
+                                              if(value["success"] == 1){
+                                                Navigator.of(context).pop();
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>  VehicleScreen()),
+                                                );
+                                              }
+                                            });
+                                          },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 5),
