@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newtron_vehicle/module/repositotories/warrentyDeleteRepo.dart';
 import 'package:newtron_vehicle/module/repositotories/warrentyEditRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/warrantyDeatils/warrantyCreation.dart';
@@ -132,6 +133,18 @@ class _BatteryScreenState extends State<WarrantyScreen> {
                                           width: 10,
                                         ),
                                         GestureDetector(
+                                          onTap: (){
+                                            WarrentyDeleteRepository().warrentyDelete(Warranty.data![index].id.toString()).then((value) {
+                                              if(value["success"] == 1){
+                                                Navigator.of(context).pop();
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>  WarrantyScreen()),
+                                                );
+                                              }
+                                            });
+                                          },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 5),

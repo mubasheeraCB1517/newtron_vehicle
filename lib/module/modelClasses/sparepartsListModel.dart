@@ -2,7 +2,6 @@ class SparePartsList {
     List<dynamic>? data;
     String? message;
     int? success;
-
     SparePartsList({this.data, this.message, this.success});
 
     factory SparePartsList.fromJson(Map<String, dynamic> json) {
@@ -37,7 +36,6 @@ class Data {
 
 
     Data({this.customer_name, this.motor_num, this.parts_name, this.price, this.vechicle_identification_num, this.vechicle_name,this.spare_id});
-
 
     factory Data.fromJson(Map<String, dynamic> json) {
         return Data(

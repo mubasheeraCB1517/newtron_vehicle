@@ -38,30 +38,7 @@ class _VehicleCreationState extends State<VehicleCreation> {
   @override
   void initState() {
     super.initState();
-    BatteryListRepository().batteryList().then((value) {
-      setState(() {
-        _batteryList = value;
-        batteryName = value.data[0].battery;
-        batteryId = value.data![0].battery_id.toString();
-        if(widget.vehicleDetails != null){
-          int index = value.data?.indexWhere((item) => item.battery == widget.vehicleDetails["battery_name"]);
-          batteryName = value.data?[index].battery;
-          batteryId = value.data![index].battery_id.toString();
-        }
-      });
-    });
-    ModelListRepository().modelList().then((value) {
-      setState(() {
-        _modelList = value;
-        modelName = value.data[0].model;
-        modelId = value.data![0].model_id.toString();
-        if(widget.vehicleDetails != null){
-          int index = value.data?.indexWhere((item) => item.model == widget.vehicleDetails["model_name"]);
-          modelName = value.data?[index].model;
-          modelId = value.data![index].model_id.toString();
-        }
-      });
-    });
+
     if(widget.vehicleDetails != null){
       vehicle_name.text = widget.vehicleDetails["vechicle_name"];
       amount.text = widget.vehicleDetails["amount"];
@@ -103,80 +80,7 @@ class _VehicleCreationState extends State<VehicleCreation> {
                 ),
               ),
             ),
-            Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: const Text(
-                  "Model Name:",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                )),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 55,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0),
-                  border: Border.all(color: Colors.grey)),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                  items: _modelList.data?.map((item) {
-                    return DropdownMenuItem(
-                      value: item.model,
-                      onTap: () {
-                        setState(() {
-                          modelId = item.model_id.toString();
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(item.model ?? ""),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (newValue) {
-                    setState(() {
-                      modelName = newValue.toString();
-                    });
-                  },
-                  value: modelName,
-                ),
-              ),
-            ),
-            Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: const Text(
-                  "Battery Name:",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                )),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 55,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0),
-                  border: Border.all(color: Colors.grey)),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                  items: _batteryList.data?.map((item) {
-                    return DropdownMenuItem(
-                      value: item.battery,
-                      onTap: () {
-                        setState(() {
-                          batteryId = item.battery_id.toString();
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(item.battery ?? ""),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (newValue) {
-                    setState(() {
-                      batteryName = newValue.toString();
-                    });
-                  },
-                  value: batteryName,
-                ),
-              ),
-            ),
+
             Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: const Text(
@@ -200,12 +104,10 @@ class _VehicleCreationState extends State<VehicleCreation> {
             GestureDetector(
               onTap: () {
                 vehicle_name.text.isNotEmpty == true &&
-                        amount.text.isNotEmpty == true &&
-                        modelId.isNotEmpty == true &&
-                        batteryId.isNotEmpty == true
+                        amount.text.isNotEmpty == true
                     ? VehicleCreationRepository()
                         .vehicleCreation(
-                            vehicle_name.text, modelId, batteryId, amount.text,widget.vehicleDetails != null ? widget.vehicleDetails["vechicle_id"].toString():"0")
+                            vehicle_name.text,amount.text,widget.vehicleDetails != null ? widget.vehicleDetails["vechicle_id"].toString():"0")
                         .then((value) {
                         if (value["success"] == 1) {
                           Navigator.pop(context);
