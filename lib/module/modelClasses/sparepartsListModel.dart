@@ -32,7 +32,7 @@ class Data {
     int? spare_id;
     String? vechicle_identification_num;
     String? vechicle_name;
-    int? spare_id;
+
 
 
 
@@ -48,7 +48,7 @@ class Data {
             spare_id: json['spare_id'],
             vechicle_identification_num: json['vechicle_identification_num'],
             vechicle_name: json['vechicle_name'],
-            spare_id:json["spare_id"]
+
         );
     }
 

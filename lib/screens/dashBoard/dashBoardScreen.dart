@@ -6,6 +6,7 @@ import 'package:newtron_vehicle/screens/vehicleDetails/vehicleScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleRegistration/vehicleRgistrationScreen.dart';
 
 import '../batteryDetails/batteryScreen.dart';
+import '../customerDetails/customerScreen.dart';
 import '../dealerRegistration/dealerRegistrationScreen.dart';
 import '../partsDetails/partsScreen.dart';
 import '../sparepartsBookingDetails/sparepartsBookingScreen.dart';
@@ -101,7 +102,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[800]),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CustomerScreen()),
+                  );
+                },
               ),
               ListTile(
                 title: Text(
