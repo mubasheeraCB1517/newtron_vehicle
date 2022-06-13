@@ -108,7 +108,7 @@ class _ColourScreenState extends State<CustomerScreen> {
                                             CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                customer.data?[index].vechicle_name??
+                                                customer.data?[index].customer_name??
                                                     "",
                                                 style: const TextStyle(
                                                     color: Colors.black,
@@ -116,8 +116,8 @@ class _ColourScreenState extends State<CustomerScreen> {
                                                     fontWeight: FontWeight.bold),
                                               ),SizedBox(height: 5,),
                                               Text(
-                                                "${ customer.data?[index].customer_name ?? ""}",
-                                                style: const TextStyle(fontSize: 18,
+                                                "${ customer.data?[index].vechicle_name ?? ""}",
+                                                style:  TextStyle(fontSize: 18,color: Colors.red[900]
                                                     ),
                                               ),
                                             ]),

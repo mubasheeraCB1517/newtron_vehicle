@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/screens/colourDetails/colourScreen.dart';
 import 'package:newtron_vehicle/screens/modelDetails/modelScreen.dart';
+import 'package:newtron_vehicle/screens/vehicleBooking/vehicleAllottedScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleBooking/vehicleBookingScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleDetails/vehicleScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleRegistration/vehicleRgistrationScreen.dart';
@@ -61,7 +62,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   );
                 },
               ),
-              ListTile(
+              ExpansionTile(
                 title: Text(
                   "Vehicle Booking",
                   style: TextStyle(
@@ -69,13 +70,41 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[800]),
                 ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const VehicleBookingScreen()),
-                  );
-                },
+                children: [
+                  ListTile(
+                    title: Text(
+                      "Vehicle Allotted",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800]),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const VehicleAllottedScreen()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Vehicle booking List",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800]),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const VehicleBookingScreen()),
+                      );
+                    },
+                  )
+                ],
+
               ),
               ListTile(
                 title: Text(
@@ -155,7 +184,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     title: Text(
                       "Vehicle",
                       style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[800]),
                     ),
@@ -171,7 +200,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     title: Text(
                       "Parts",
                       style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[800]),
                     ),
@@ -188,7 +217,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     title: Text(
                       "Model",
                       style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[800]),
                     ),
@@ -204,7 +233,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     title: Text(
                       "Colour",
                       style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[800]),
                     ),
@@ -220,7 +249,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     title: Text(
                       "Battery",
                       style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[800]),
                     ),
