@@ -112,7 +112,7 @@ class _ColourCreationState extends State<VehicleBookinkCreation> {
               Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: const Text(
-                    "VECHICLE NAME:",
+                    "VEHICLE NAME:",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
               TextFormField(
@@ -181,7 +181,7 @@ class _ColourCreationState extends State<VehicleBookinkCreation> {
               Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: const Text(
-                    "VECHICLE STATUS:",
+                    "VEHICLE STATUS:",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
               TextFormField(

@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newtron_vehicle/module/modelClasses/batteryListModel.dart';
 import 'package:newtron_vehicle/module/modelClasses/modelListModel.dart';
-import 'package:newtron_vehicle/module/repositotories/batteryListRepo.dart';
-import 'package:newtron_vehicle/module/repositotories/modelListRepo.dart';
 import 'package:newtron_vehicle/module/repositotories/vehicleCreationRepo.dart';
 import 'package:newtron_vehicle/screens/alertBox/alertBox.dart';
 import 'package:newtron_vehicle/screens/vehicleDetails/vehicleScreen.dart';
 
 class VehicleCreation extends StatefulWidget {
   const VehicleCreation({Key? key, this.vehicleDetails}) : super(key: key);
- final  vehicleDetails;
+  final vehicleDetails;
 
   @override
   State<VehicleCreation> createState() => _VehicleCreationState();
@@ -39,7 +37,7 @@ class _VehicleCreationState extends State<VehicleCreation> {
   void initState() {
     super.initState();
 
-    if(widget.vehicleDetails != null){
+    if (widget.vehicleDetails != null) {
       vehicle_name.text = widget.vehicleDetails["vechicle_name"];
       amount.text = widget.vehicleDetails["amount"];
     }
@@ -80,7 +78,6 @@ class _VehicleCreationState extends State<VehicleCreation> {
                 ),
               ),
             ),
-
             Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: const Text(
@@ -107,7 +104,12 @@ class _VehicleCreationState extends State<VehicleCreation> {
                         amount.text.isNotEmpty == true
                     ? VehicleCreationRepository()
                         .vehicleCreation(
-                            vehicle_name.text,amount.text,widget.vehicleDetails != null ? widget.vehicleDetails["vechicle_id"].toString():"0")
+                            vehicle_name.text,
+                            amount.text,
+                            widget.vehicleDetails != null
+                                ? widget.vehicleDetails["vechicle_id"]
+                                    .toString()
+                                : "0")
                         .then((value) {
                         if (value["success"] == 1) {
                           Navigator.pop(context);

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newtron_vehicle/screens/sparepartsDetails/sparepartsScreen.dart';
-
 import '../../module/modelClasses/partsListModel.dart';
-import '../../module/modelClasses/sparepartsListModel.dart';
 import '../../module/modelClasses/vehicleListModel.dart';
-import '../../module/repositotories/dealerCreationRepo.dart';
 import '../../module/repositotories/partsListRepo.dart';
-import '../../module/repositotories/spare_partsListRepo.dart';
 import '../../module/repositotories/sparepartsCreationRepo.dart';
 import '../../module/repositotories/vehicleListRepo.dart';
 import '../alertBox/alertBox.dart';
@@ -96,7 +92,7 @@ class _ColourCreationState extends State<SparePartsCreation> {
               Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: const Text(
-                    "Vechicle Identification Number  :",
+                    "Vehicle Identification Number  :",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
               TextFormField(

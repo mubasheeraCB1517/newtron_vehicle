@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/network/response.dart';
-
 import '../../module/blocs/batteryListBloc.dart';
 import '../../module/modelClasses/batteryListModel.dart';
 import '../../module/repositotories/batteryDeleteRepo.dart';
@@ -70,13 +69,21 @@ class _BatteryScreenState extends State<BatteryScreen> {
                               itemCount: battery.data?.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
-                                    BatteryEditRepository().batteryEdit(battery.data![index].battery_id.toString()).then((value) {
-                                      if(value["success"] == 1){
+                                  onTap: () {
+                                    BatteryEditRepository()
+                                        .batteryEdit(battery
+                                            .data![index].battery_id
+                                            .toString())
+                                        .then((value) {
+                                      if (value["success"] == 1) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>  BatteryCreation(batteryDetails: value["data"],)),
+                                              builder: (context) =>
+                                                  BatteryCreation(
+                                                    batteryDetails:
+                                                        value["data"],
+                                                  )),
                                         );
                                       }
                                     });
@@ -114,13 +121,14 @@ class _BatteryScreenState extends State<BatteryScreen> {
                                                     "",
                                                 style: const TextStyle(
                                                     fontSize: 18,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               const SizedBox(
                                                 height: 10,
                                               ),
                                               Text(
-                                                "₹${battery.data?[index].dealer_price ??""}",
+                                                "₹${battery.data?[index].dealer_price ?? ""}",
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     color: Colors.red[900]),
@@ -130,15 +138,20 @@ class _BatteryScreenState extends State<BatteryScreen> {
                                           width: 10,
                                         ),
                                         GestureDetector(
-                                          onTap: (){
-                                            BatteryDeleteRepository().batterydelete(battery.data![index].battery_id.toString()).then((value) {
-                                              if(value["success"] == 1){
+                                          onTap: () {
+                                            BatteryDeleteRepository()
+                                                .batterydelete(battery
+                                                    .data![index].battery_id
+                                                    .toString())
+                                                .then((value) {
+                                              if (value["success"] == 1) {
                                                 Navigator.pop(context);
                                                 Navigator.pop(context);
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>  const BatteryScreen()),
+                                                      builder: (context) =>
+                                                          const BatteryScreen()),
                                                 );
                                               }
                                             });
@@ -153,8 +166,8 @@ class _BatteryScreenState extends State<BatteryScreen> {
                                             child: const Center(
                                                 child: Text(
                                               "Delete",
-                                              style:
-                                                  TextStyle(color: Colors.white),
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             )),
                                           ),
                                         ),
@@ -170,7 +183,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
                     return Container(
                       decoration: const BoxDecoration(
                           image: DecorationImage(
-                        image: AssetImage("assest/images/error.png"),
+                        image: AssetImage("assets/images/error.png"),
                         fit: BoxFit.fill,
                       )),
                     );

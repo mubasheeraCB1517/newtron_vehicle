@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/repositotories/colorEditRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/colourDetails/colourCreation.dart';
-
 import '../../module/blocs/customerListBloc.dart';
 import '../../module/modelClasses/customerListModel.dart';
 
@@ -44,7 +43,7 @@ class _ColourScreenState extends State<CustomerScreen> {
                   //       builder: (context) => const ColourCreation()),
                   // );
                 },
-                icon: Icon(Icons.add))
+                icon: const Icon(Icons.add))
           ],
         ),
         body: StreamBuilder<Response<CustomerList>>(
@@ -65,16 +64,23 @@ class _ColourScreenState extends State<CustomerScreen> {
                         Container(
                           margin: const EdgeInsets.only(top: 20),
                           child: ListView.builder(
-                              itemCount:   customer.data?.length,
+                              itemCount: customer.data?.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
-                                    ColorEditRepository().colorEdit( customer.data![index].color_id.toString()).then((value) {
-                                      if(value["success"] == 1){
+                                  onTap: () {
+                                    ColorEditRepository()
+                                        .colorEdit(customer
+                                            .data![index].color_id
+                                            .toString())
+                                        .then((value) {
+                                      if (value["success"] == 1) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>  ColourCreation(colorDetails: value["data"],)),
+                                              builder: (context) =>
+                                                  ColourCreation(
+                                                    colorDetails: value["data"],
+                                                  )),
                                         );
                                       }
                                     });
@@ -99,46 +105,51 @@ class _ColourScreenState extends State<CustomerScreen> {
                                         ]),
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                customer.data?[index].customer_name??
+                                                customer.data?[index]
+                                                        .customer_name ??
                                                     "",
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 18,
-                                                    fontWeight: FontWeight.bold),
-                                              ),SizedBox(height: 5,),
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
                                               Text(
-                                                "${ customer.data?[index].vechicle_name ?? ""}",
-                                                style:  TextStyle(fontSize: 18,color: Colors.red[900]
-                                                    ),
+                                                "${customer.data?[index].vechicle_name ?? ""}",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.red[900]),
                                               ),
                                             ]),
                                         const SizedBox(
                                           width: 50,
                                         ),
                                         GestureDetector(
-
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 5),
                                             decoration: BoxDecoration(
                                                 color: Colors.green[400],
                                                 borderRadius:
-                                                BorderRadius.circular(5)),
+                                                    BorderRadius.circular(5)),
                                             child: const Center(
                                                 child: Text(
-                                                  "Delete",
-                                                  style:
-                                                  TextStyle(color: Colors.white),
-                                                )),
+                                              "Delete",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )),
                                           ),
                                         ),
                                       ],
@@ -151,10 +162,14 @@ class _ColourScreenState extends State<CustomerScreen> {
                     );
                   case Status.ERROR:
                     return Container(
-                      color: Colors.yellow,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                        image: AssetImage("assets/images/error.png"),
+                        fit: BoxFit.contain,
+                      )),
                     );
                   case Status.COMPLETED:
-                  // TODO: Handle this case.
+
                     break;
                 }
               }

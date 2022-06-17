@@ -44,7 +44,7 @@ class _BatteryScreenState extends State<SparePartsScreen> {
                       MaterialPageRoute(
                           builder: (context) => const SparePartsCreation()));
                 },
-                icon: Icon(Icons.add))
+                icon: const Icon(Icons.add))
           ],
         ),
         body: StreamBuilder<Response<SparePartsList>>(
@@ -143,20 +143,22 @@ class _BatteryScreenState extends State<SparePartsScreen> {
                                           width: 10,
                                         ),
                                         GestureDetector(
-
-                                        
-                                          onTap: (){
-                                            SparePartsDeleteRepository().sparePartsDelete(spare.data![index].spare_id.toString()).then((value) {
-                                              if(value["success"] == 1){
+                                          onTap: () {
+                                            SparePartsDeleteRepository()
+                                                .sparePartsDelete(spare
+                                                    .data![index].spare_id
+                                                    .toString())
+                                                .then((value) {
+                                              if (value["success"] == 1) {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>  SparePartsScreen()),
+                                                      builder: (context) =>
+                                                          const SparePartsScreen()),
                                                 );
                                               }
                                             });
                                           },
-
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 5),
@@ -184,8 +186,8 @@ class _BatteryScreenState extends State<SparePartsScreen> {
                     return Container(
                       decoration: const BoxDecoration(
                           image: DecorationImage(
-                        image: AssetImage("assest/images/error.png"),
-                        fit: BoxFit.fill,
+                        image: AssetImage("assets/images/error.png"),
+                        fit: BoxFit.contain,
                       )),
                     );
                   case Status.COMPLETED:

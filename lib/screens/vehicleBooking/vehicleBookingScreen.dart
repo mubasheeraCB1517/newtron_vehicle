@@ -101,15 +101,20 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
                                         width: 50,
                                       ),
                                       GestureDetector(
-                                        onTap: (){
-                                          VehicleBookingDeleteRepository().vehicleBookingDelete(vehicles.data![index].id.toString()).then((value) {
-                                            if(value["success"] == 1){
+                                        onTap: () {
+                                          VehicleBookingDeleteRepository()
+                                              .vehicleBookingDelete(vehicles
+                                                  .data![index].id
+                                                  .toString())
+                                              .then((value) {
+                                            if (value["success"] == 1) {
                                               Navigator.pop(context);
                                               Navigator.pop(context);
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>  const VehicleBookingScreen()),
+                                                    builder: (context) =>
+                                                        const VehicleBookingScreen()),
                                               );
                                             }
                                           });
@@ -139,10 +144,10 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
                   case Status.ERROR:
                     return Container(
                       decoration: const BoxDecoration(
-                        image: DecorationImage(
-                           image: AssetImage("assest/images/error.png")
-                        )
-                      ),
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/error.png"),
+                            fit: BoxFit.contain
+                          )),
                     );
                   case Status.COMPLETED:
                     // TODO: Handle this case.

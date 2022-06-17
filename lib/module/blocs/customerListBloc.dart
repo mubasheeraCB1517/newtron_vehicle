@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:newtron_vehicle/module/modelClasses/colourListModel.dart';
 import 'package:newtron_vehicle/module/modelClasses/vehicleListModel.dart';
@@ -9,9 +8,10 @@ import 'package:newtron_vehicle/network/response.dart';
 import '../modelClasses/customerListModel.dart';
 import '../repositotories/customerListRepo.dart';
 
-class CustomerListBloc{
-  CustomerListRepository  _customerListRepository = new CustomerListRepository ();
-  final _customerListDataController= StreamController<Response<CustomerList>>();
+class CustomerListBloc {
+  CustomerListRepository _customerListRepository = new CustomerListRepository();
+  final _customerListDataController =
+      StreamController<Response<CustomerList>>();
 
   StreamSink<Response<CustomerList>> get customerListDataSink =>
       _customerListDataController.sink;
@@ -20,7 +20,7 @@ class CustomerListBloc{
       _customerListDataController.stream;
 
   CustomerListBloc() {
-    _customerListRepository = CustomerListRepository ();
+    _customerListRepository = CustomerListRepository();
     getCustomerListBloc();
   }
 

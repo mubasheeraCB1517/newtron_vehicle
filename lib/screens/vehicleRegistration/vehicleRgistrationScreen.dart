@@ -153,7 +153,11 @@ class _VehicleRegistrationScreenState extends State<VehicleRegistrationScreen> {
                     );
                   case Status.ERROR:
                     return Container(
-                      color: Colors.yellow,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                        image: AssetImage("assets/images/error.png"),
+                        fit: BoxFit.contain,
+                      )),
                     );
                 }
               }

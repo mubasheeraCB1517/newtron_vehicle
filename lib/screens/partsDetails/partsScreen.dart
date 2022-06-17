@@ -43,7 +43,7 @@ class _BatteryScreenState extends State<PartsScreen> {
                       MaterialPageRoute(
                           builder: (context) => const PartsCreation()));
                 },
-                icon: Icon(Icons.add))
+                icon: const Icon(Icons.add))
           ],
         ),
         body: StreamBuilder<Response<PartsList>>(
@@ -70,13 +70,19 @@ class _BatteryScreenState extends State<PartsScreen> {
                               itemCount: parts.data?.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
-                                    PartsEditRepository().partsEdit(parts.data![index].parts_id.toString()).then((value) {
-                                      if(value["success"] == 1){
+                                  onTap: () {
+                                    PartsEditRepository()
+                                        .partsEdit(parts.data![index].parts_id
+                                            .toString())
+                                        .then((value) {
+                                      if (value["success"] == 1) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>  PartsCreation(partsDetails: value["data"],)),
+                                              builder: (context) =>
+                                                  PartsCreation(
+                                                    partsDetails: value["data"],
+                                                  )),
                                         );
                                       }
                                     });
@@ -110,14 +116,12 @@ class _BatteryScreenState extends State<PartsScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                parts.data?[index]
-                                                        .parts ??
-                                                    "",
+                                                parts.data?[index].parts ?? "",
                                                 style: const TextStyle(
                                                     fontSize: 18,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
-
                                               Text(
                                                 "${parts.data?[index].specification ?? ""}",
                                                 style: TextStyle(
@@ -129,15 +133,20 @@ class _BatteryScreenState extends State<PartsScreen> {
                                           width: 10,
                                         ),
                                         GestureDetector(
-                                          onTap: (){
-                                            PartsDeleteRepository().partsdelete(parts.data![index].parts_id.toString()).then((value) {
-                                              if(value["success"] == 1){
+                                          onTap: () {
+                                            PartsDeleteRepository()
+                                                .partsdelete(parts
+                                                    .data![index].parts_id
+                                                    .toString())
+                                                .then((value) {
+                                              if (value["success"] == 1) {
                                                 Navigator.pop(context);
                                                 Navigator.pop(context);
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>  const PartsScreen()),
+                                                      builder: (context) =>
+                                                          const PartsScreen()),
                                                 );
                                               }
                                             });
@@ -152,8 +161,8 @@ class _BatteryScreenState extends State<PartsScreen> {
                                             child: const Center(
                                                 child: Text(
                                               "Delete",
-                                              style:
-                                                  TextStyle(color: Colors.white),
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             )),
                                           ),
                                         ),
@@ -169,8 +178,8 @@ class _BatteryScreenState extends State<PartsScreen> {
                     return Container(
                       decoration: const BoxDecoration(
                           image: DecorationImage(
-                        image: AssetImage("assest/images/error.png"),
-                        fit: BoxFit.fill,
+                        image: AssetImage("assets/images/error.png"),
+                        fit: BoxFit.contain,
                       )),
                     );
                   case Status.COMPLETED:

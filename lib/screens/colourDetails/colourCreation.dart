@@ -20,10 +20,11 @@ class _ColourCreationState extends State<ColourCreation> {
 
   // ignore: non_constant_identifier_names
   final dealer_price = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    if(widget.colorDetails != null){
+    if (widget.colorDetails != null) {
       color_name.text = widget.colorDetails["color_name"] ?? "";
       specification.text = widget.colorDetails["specification"] ?? "";
       price.text = widget.colorDetails["price"] ?? "";
@@ -129,8 +130,14 @@ class _ColourCreationState extends State<ColourCreation> {
                         price.text.isNotEmpty == true &&
                         dealer_price.text.isNotEmpty == true
                     ? ColorCreationRepository()
-                        .colorCreation(color_name.text, specification.text,
-                            price.text, dealer_price.text,widget.colorDetails != null ?widget.colorDetails["color_id"].toString():"0")
+                        .colorCreation(
+                            color_name.text,
+                            specification.text,
+                            price.text,
+                            dealer_price.text,
+                            widget.colorDetails != null
+                                ? widget.colorDetails["color_id"].toString()
+                                : "0")
                         .then((value) {
                         if (value["success"] == 1) {
                           Navigator.pop(context);
