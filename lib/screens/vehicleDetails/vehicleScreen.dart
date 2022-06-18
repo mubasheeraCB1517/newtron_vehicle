@@ -30,13 +30,15 @@ class _VehicleScreenState extends State<VehicleScreen> {
           iconTheme: IconThemeData(color: Colors.green[400]),
           centerTitle: true,
           actions: [
-            IconButton(onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const VehicleCreation()),
-              );
-            }, icon: Icon(Icons.add))
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const VehicleCreation()),
+                  );
+                },
+                icon: const Icon(Icons.add))
           ],
           backgroundColor: Colors.yellow[200],
           title: Text(
@@ -68,13 +70,21 @@ class _VehicleScreenState extends State<VehicleScreen> {
                               itemCount: vehicles.data?.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
-                                    VehicleEditRepository().vehicleEdit(vehicles.data![index].vechicle_id.toString()).then((value) {
-                                      if(value["success"] == 1){
+                                  onTap: () {
+                                    VehicleEditRepository()
+                                        .vehicleEdit(vehicles
+                                            .data![index].vechicle_id
+                                            .toString())
+                                        .then((value) {
+                                      if (value["success"] == 1) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>  VehicleCreation(vehicleDetails: value["data"],)),
+                                              builder: (context) =>
+                                                  VehicleCreation(
+                                                    vehicleDetails:
+                                                        value["data"],
+                                                  )),
                                         );
                                       }
                                     });
@@ -84,10 +94,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                         horizontal: 20, vertical: 30),
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10),
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .width,
+                                    width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.white,
@@ -102,27 +109,26 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                         ]),
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 vehicles.data?[index]
-                                                    .vechicle_name ??
+                                                        .vechicle_name ??
                                                     "",
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 18,
                                                     fontWeight:
-                                                    FontWeight.bold),
+                                                        FontWeight.bold),
                                               ),
                                               Text(
-                                                "₹${vehicles.data?[index]
-                                                    .amount ?? ""}",
+                                                "₹${vehicles.data?[index].amount ?? ""}",
                                                 style: TextStyle(
                                                     color: Colors.red[900]),
                                               ),
@@ -131,14 +137,19 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                           width: 50,
                                         ),
                                         GestureDetector(
-                                          onTap: (){
-                                            VehicleDeleteRepository().vehicleDelete(vehicles.data![index].vechicle_id.toString()).then((value) {
-                                              if(value["success"] == 1){
+                                          onTap: () {
+                                            VehicleDeleteRepository()
+                                                .vehicleDelete(vehicles
+                                                    .data![index].vechicle_id
+                                                    .toString())
+                                                .then((value) {
+                                              if (value["success"] == 1) {
                                                 Navigator.of(context).pop();
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>  VehicleScreen()),
+                                                      builder: (context) =>
+                                                          VehicleScreen()),
                                                 );
                                               }
                                             });
@@ -149,13 +160,13 @@ class _VehicleScreenState extends State<VehicleScreen> {
                                             decoration: BoxDecoration(
                                                 color: Colors.green[400],
                                                 borderRadius:
-                                                BorderRadius.circular(5)),
+                                                    BorderRadius.circular(5)),
                                             child: const Center(
                                                 child: Text(
-                                                  "Delete",
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                )),
+                                              "Delete",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )),
                                           ),
                                         ),
                                       ],
@@ -168,7 +179,11 @@ class _VehicleScreenState extends State<VehicleScreen> {
                     );
                   case Status.ERROR:
                     return Container(
-                      color: Colors.yellow,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                        image: AssetImage("assets/images/error.png"),
+                        fit: BoxFit.contain,
+                      )),
                     );
                 }
               }

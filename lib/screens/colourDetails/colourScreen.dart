@@ -68,13 +68,19 @@ class _ColourScreenState extends State<ColourScreen> {
                               itemCount: colours.data?.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
-                                    ColorEditRepository().colorEdit(colours.data![index].color_id.toString()).then((value) {
-                                      if(value["success"] == 1){
+                                  onTap: () {
+                                    ColorEditRepository()
+                                        .colorEdit(colours.data![index].color_id
+                                            .toString())
+                                        .then((value) {
+                                      if (value["success"] == 1) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>  ColourCreation(colorDetails: value["data"],)),
+                                              builder: (context) =>
+                                                  ColourCreation(
+                                                    colorDetails: value["data"],
+                                                  )),
                                         );
                                       }
                                     });
@@ -108,12 +114,14 @@ class _ColourScreenState extends State<ColourScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                colours.data?[index].color_name ??
+                                                colours.data?[index]
+                                                        .color_name ??
                                                     "",
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 18,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Text(
                                                 "₹${colours.data?[index].dealer_price ?? ""}",
@@ -125,14 +133,19 @@ class _ColourScreenState extends State<ColourScreen> {
                                           width: 50,
                                         ),
                                         GestureDetector(
-                                          onTap: (){
-                                            ColorDeleteRepository().colorDelete(colours.data![index].color_id.toString()).then((value) {
-                                              if(value["success"] == 1){
+                                          onTap: () {
+                                            ColorDeleteRepository()
+                                                .colorDelete(colours
+                                                    .data![index].color_id
+                                                    .toString())
+                                                .then((value) {
+                                              if (value["success"] == 1) {
                                                 Navigator.of(context).pop();
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>  ColourScreen()),
+                                                      builder: (context) =>
+                                                          ColourScreen()),
                                                 );
                                               }
                                             });
@@ -147,8 +160,8 @@ class _ColourScreenState extends State<ColourScreen> {
                                             child: const Center(
                                                 child: Text(
                                               "Delete",
-                                              style:
-                                                  TextStyle(color: Colors.white),
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             )),
                                           ),
                                         ),
@@ -162,7 +175,11 @@ class _ColourScreenState extends State<ColourScreen> {
                     );
                   case Status.ERROR:
                     return Container(
-                      color: Colors.yellow,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                        image: AssetImage("assets/images/error.png"),
+                        fit: BoxFit.contain,
+                      )),
                     );
                   case Status.COMPLETED:
                     // TODO: Handle this case.

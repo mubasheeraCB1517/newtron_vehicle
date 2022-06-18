@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-
+import '../../module/modelClasses/stateListModel.dart';
 import '../../module/repositotories/dealerCreationRepo.dart';
-
+import '../../module/repositotories/stateListRepo.dart';
 import 'dealerRegistrationScreen.dart';
 
 class DealerCreation extends StatefulWidget {
-  const DealerCreation({Key? key}) : super(key: key);
+  const DealerCreation({Key? key, this.dealerDetails}) : super(key: key);
+  final dealerDetails;
 
   @override
   State<DealerCreation> createState() => _ColourCreationState();
@@ -17,8 +18,40 @@ class _ColourCreationState extends State<DealerCreation> {
   final contact_no = TextEditingController();
   final email = TextEditingController();
   final gst_in = TextEditingController();
-  final state = TextEditingController();
   final place = TextEditingController();
+  final password = TextEditingController();
+
+  StateList _stateList = StateList();
+  String state_name = "";
+  String state_id = "";
+  String id="";
+
+  @override
+  void initState() {
+    super.initState();
+    StateListRepository().stateList().then((value) {
+      setState(() {
+        _stateList = value;
+        state_name = value.data[0].state_name;
+        state_id = value.data[0].state_id.toString();
+        if (widget.dealerDetails != null) {
+          int index = value.data?.indexWhere(
+              (item) => item.state_name == widget.dealerDetails["state_name"]);
+          state_name = value.data?[index].state_name;
+          state_id = value.data![index].state_id.toString();
+        }
+      });
+    });
+    if (widget.dealerDetails != null) {
+      dealer_name.text = widget.dealerDetails['dealer_name'].toString();
+      address.text = widget.dealerDetails['address'].toString();
+      contact_no.text = widget.dealerDetails['contact_no'].toString();
+      email.text = widget.dealerDetails['email'].toString();
+      gst_in.text = widget.dealerDetails['gst_in'].toString();
+      place.text = widget.dealerDetails['place'].toString();
+      // password.text =widget.dealerDetails['password'].toString();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,14 +165,34 @@ class _ColourCreationState extends State<DealerCreation> {
                     "STATE:",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
-              TextFormField(
-                controller: state,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 55,
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25.0),
-                    borderSide: BorderSide(
-                      color: Colors.green[400]!,
-                    ),
+                    border: Border.all(color: Colors.grey)),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    items: _stateList.data?.map((item) {
+                      return DropdownMenuItem(
+                        value: item.state_name,
+                        onTap: () {
+                          setState(() {
+                            state_id = item.state_id.toString();
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(item.state_name ?? ""),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        state_name = newValue.toString();
+                      });
+                    },
+                    value: state_name,
                   ),
                 ),
               ),
@@ -160,18 +213,39 @@ class _ColourCreationState extends State<DealerCreation> {
                   ),
                 ),
               ),
+              widget.dealerDetails == null? Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: const Text(
+                    "Password :",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  )):SizedBox(height: 0,),
+              widget.dealerDetails == null? TextFormField(
+                controller: password,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                    borderSide: BorderSide(
+                      color: Colors.green[400]!,
+                    ),
+                  ),
+                ),
+              ):SizedBox(height: 0,),
               const SizedBox(
                 height: 40,
               ),
               GestureDetector(
+
                 onTap: () {
+
+                  print("123==${state_id}");
                   dealer_name.text.isEmpty == true &&
                       address.text.isEmpty == true &&
                       contact_no.text.isEmpty == true &&
                       email.text.isEmpty == true &&
                       gst_in.text.isEmpty == true &&
-                      state.text.isEmpty == true &&
-                      place.text.isEmpty == true;
+                      state_id == true &&
+                      place.text.isEmpty == true&&
+                  password.text.isEmpty == true;
                   DealerCreationRepository()
                       .dealerCreation(
                     dealer_name.text,
@@ -179,8 +253,10 @@ class _ColourCreationState extends State<DealerCreation> {
                     contact_no.text,
                     email.text,
                     gst_in.text,
-                    state.text,
+                    state_id,
                     place.text,
+                    password.text,
+                      widget.dealerDetails != null? widget.dealerDetails["id"].toString():"0"
                   )
                       .then((value) {
                     if (value["success"] == 1) {
@@ -191,8 +267,11 @@ class _ColourCreationState extends State<DealerCreation> {
                         MaterialPageRoute(
                             builder: (context) => const DealerScreen()),
                       );
-                    } else {}
+
+                    }
+                    else {}
                   });
+
                 },
                 child: Container(
                   padding:

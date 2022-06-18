@@ -5,8 +5,9 @@ import '../alertBox/alertBox.dart';
 import 'batteryScreen.dart';
 
 class BatteryCreation extends StatefulWidget {
-  const BatteryCreation({Key? key,this.batteryDetails}) : super(key: key);
-final batteryDetails;
+  const BatteryCreation({Key? key, this.batteryDetails}) : super(key: key);
+  final batteryDetails;
+
   @override
   State<BatteryCreation> createState() => _ColourCreationState();
 }
@@ -16,16 +17,18 @@ class _ColourCreationState extends State<BatteryCreation> {
   final specification = TextEditingController();
   final price = TextEditingController();
   final dealer_price = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    if(widget.batteryDetails != null){
-      battery_name .text = widget.batteryDetails["battery_name"].toString();
+    if (widget.batteryDetails != null) {
+      battery_name.text = widget.batteryDetails["battery_name"].toString();
       specification.text = widget.batteryDetails["specification"].toString();
       price.text = widget.batteryDetails["price"].toString();
       dealer_price.text = widget.batteryDetails["dealer_price"].toString();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,34 +123,40 @@ class _ColourCreationState extends State<BatteryCreation> {
             GestureDetector(
               onTap: () {
                 battery_name.text.isNotEmpty == true &&
-                    specification.text.isNotEmpty == true &&
-                    price.text.isNotEmpty == true &&
-                    dealer_price.text.isNotEmpty == true
-                ?BatteryCreationRepository()
-                    .batteryCreation(battery_name.text, specification.text,
-                        price.text, dealer_price.text,widget.batteryDetails !=null?widget.batteryDetails["battery_id"].toString():"0")
-                    .then((value) {
-                  if (value["success"] == 1) {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BatteryScreen()),
-                    );
-                  } else {
-                    const AlertBox(
-                      title: "Oh!",
-                      image: "assets/images/warning.png",
-                      content: "Something went wrong",
-                    );
-                  }
-                })
-                : Fluttertoast.showToast(
-                msg: "Please fill all the fields",
-                gravity: ToastGravity.BOTTOM,
-                toastLength: Toast.LENGTH_SHORT,
-                );
+                        specification.text.isNotEmpty == true &&
+                        price.text.isNotEmpty == true &&
+                        dealer_price.text.isNotEmpty == true
+                    ? BatteryCreationRepository()
+                        .batteryCreation(
+                            battery_name.text,
+                            specification.text,
+                            price.text,
+                            dealer_price.text,
+                            widget.batteryDetails != null
+                                ? widget.batteryDetails["battery_id"].toString()
+                                : "0")
+                        .then((value) {
+                        if (value["success"] == 1) {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const BatteryScreen()),
+                          );
+                        } else {
+                          const AlertBox(
+                            title: "Oh!",
+                            image: "assets/images/warning.png",
+                            content: "Something went wrong",
+                          );
+                        }
+                      })
+                    : Fluttertoast.showToast(
+                        msg: "Please fill all the fields",
+                        gravity: ToastGravity.BOTTOM,
+                        toastLength: Toast.LENGTH_SHORT,
+                      );
               },
               child: Container(
                 padding:

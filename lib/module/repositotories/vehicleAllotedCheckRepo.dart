@@ -1,5 +1,4 @@
-import 'package:newtron_vehicle/module/modelClasses/vehicleAllotedListModel.dart';
-import 'package:newtron_vehicle/module/modelClasses/vehicleAllottedMatchListModel.dart';
+
 import 'package:newtron_vehicle/network/webApiProvider.dart';
 
 class VehicleAllottedCheckRepository {

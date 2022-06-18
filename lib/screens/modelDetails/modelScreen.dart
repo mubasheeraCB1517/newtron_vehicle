@@ -44,7 +44,7 @@ class _ModelScreenState extends State<ModelScreen> {
                         builder: (context) => const ModelCreation()),
                   );
                 },
-                icon: Icon(Icons.add))
+                icon: const Icon(Icons.add))
           ],
         ),
         body: StreamBuilder<Response<ModelList>>(
@@ -143,7 +143,10 @@ class _ModelScreenState extends State<ModelScreen> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          ModelScreen()),
+
+                                                          const ModelScreen()),
+
+
                                                 );
                                               }
                                             });
@@ -173,7 +176,11 @@ class _ModelScreenState extends State<ModelScreen> {
                     );
                   case Status.ERROR:
                     return Container(
-                      color: Colors.yellow,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                        image: AssetImage("assets/images/error.png"),
+                        fit: BoxFit.contain,
+                      )),
                     );
                   case Status.COMPLETED:
                     // TODO: Handle this case.

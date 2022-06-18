@@ -115,6 +115,38 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
                                         const SizedBox(
                                           width: 50,
                                         ),
+
+                                      ]),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              vehicles.data?[index]
+                                                      .customer_name ??
+                                                  "",
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "${vehicles.data?[index].vechicle_name ?? ""}",
+                                              style: TextStyle(
+                                                  color: Colors.red[900]),
+                                            ),
+                                          ]),
+                                      const SizedBox(
+                                        width: 50,
+                                      ),
+                                     
+
                                         GestureDetector(
                                           onTap: (){
                                             VehicleBookingDeleteRepository().vehicleBookingDelete(vehicles.data![index].id.toString()).then((value) {
@@ -143,6 +175,7 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
                                                   TextStyle(color: Colors.white),
                                             )),
                                           ),
+
                                         ),
                                       ],
                                     ),
@@ -155,10 +188,10 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
                   case Status.ERROR:
                     return Container(
                       decoration: const BoxDecoration(
-                        image: DecorationImage(
-                           image: AssetImage("assest/images/error.png")
-                        )
-                      ),
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/error.png"),
+                            fit: BoxFit.contain
+                          )),
                     );
                   case Status.COMPLETED:
                     // TODO: Handle this case.

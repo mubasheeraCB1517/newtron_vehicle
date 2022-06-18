@@ -3,7 +3,6 @@ import 'package:newtron_vehicle/module/repositotories/warrentyDeleteRepo.dart';
 import 'package:newtron_vehicle/module/repositotories/warrentyEditRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/warrantyDeatils/warrantyCreation.dart';
-
 import '../../module/blocs/warrantyListBloc.dart';
 import '../../module/modelClasses/warrantyListModel.dart';
 
@@ -15,7 +14,7 @@ class WarrantyScreen extends StatefulWidget {
 }
 
 class _BatteryScreenState extends State<WarrantyScreen> {
-  late WarrantyList Warranty;
+  late WarrantyList warranty;
   late WarrantyListBloc _bloc;
 
   @override
@@ -45,7 +44,7 @@ class _BatteryScreenState extends State<WarrantyScreen> {
                         builder: (context) => const WarrantyCreation()),
                   );
                 },
-                icon: Icon(Icons.add))
+                icon: const Icon(Icons.add))
           ],
         ),
         body: StreamBuilder<Response<WarrantyList>>(
@@ -59,27 +58,32 @@ class _BatteryScreenState extends State<WarrantyScreen> {
                         color: Colors.green[400],
                       ),
                     );
-
                   case Status.SUCCESS:
-                    Warranty = snapshot.data!.data;
+                    warranty = snapshot.data!.data;
                     return Stack(
                       children: [
-
                         Container(
                           margin: const EdgeInsets.only(
                             top: 20,
                           ),
                           child: ListView.builder(
-                              itemCount: Warranty.data?.length,
+                              itemCount: warranty.data?.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
-                                    WarrentyEditRepository().warrentyEdit(Warranty.data![index].id.toString()).then((value) {
-                                      if(value["success"] == 1){
+                                  onTap: () {
+                                    WarrentyEditRepository()
+                                        .warrentyEdit(
+                                            warranty.data![index].id.toString())
+                                        .then((value) {
+                                      if (value["success"] == 1) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>  WarrantyCreation(warrentyDetails: value["data"],)),
+                                              builder: (context) =>
+                                                  WarrantyCreation(
+                                                    warrentyDetails:
+                                                        value["data"],
+                                                  )),
                                         );
                                       }
                                     });
@@ -113,34 +117,38 @@ class _BatteryScreenState extends State<WarrantyScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                Warranty.data?[index]
+                                                warranty.data?[index]
                                                         .dealer_name ??
                                                     "",
                                                 style: const TextStyle(
                                                     fontSize: 18,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
-
                                               Text(
-                                                "${Warranty.data?[index].vechicle_name ?? ""}",
-                                                style:  TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.red[900]
-                                                ),
+                                                "${warranty.data?[index].vechicle_name ?? ""}",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.red[900]),
                                               ),
                                             ]),
                                         const SizedBox(
                                           width: 10,
                                         ),
                                         GestureDetector(
-                                          onTap: (){
-                                            WarrentyDeleteRepository().warrentyDelete(Warranty.data![index].id.toString()).then((value) {
-                                              if(value["success"] == 1){
+                                          onTap: () {
+                                            WarrentyDeleteRepository()
+                                                .warrentyDelete(warranty
+                                                    .data![index].id
+                                                    .toString())
+                                                .then((value) {
+                                              if (value["success"] == 1) {
                                                 Navigator.of(context).pop();
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>  WarrantyScreen()),
+                                                      builder: (context) =>
+                                                          const WarrantyScreen()),
                                                 );
                                               }
                                             });
@@ -155,8 +163,8 @@ class _BatteryScreenState extends State<WarrantyScreen> {
                                             child: const Center(
                                                 child: Text(
                                               "Delete",
-                                              style:
-                                                  TextStyle(color: Colors.white),
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             )),
                                           ),
                                         ),
@@ -172,12 +180,11 @@ class _BatteryScreenState extends State<WarrantyScreen> {
                     return Container(
                       decoration: const BoxDecoration(
                           image: DecorationImage(
-                              image: AssetImage("assest/images/error.png"),fit: BoxFit.fill,
-                          )
-                      ),
+                        image: AssetImage("assets/images/error.png"),
+                        fit: BoxFit.contain,
+                      )),
                     );
                   case Status.COMPLETED:
-                    // TODO: Handle this case.
                     break;
                 }
               }

@@ -89,7 +89,7 @@ class Data {
       model: json['model'],
       password: json['password'],
       place: json['place'],
-      state: json['state'],
+      state: json['state_name'],
       status: json['status'],
       type: json['type'],
       updated_at: json['updated_at'],
