@@ -87,36 +87,7 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
                                                 1), // changes position of shadow
                                           ),
                                         ]),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                vehicles.data?[index]
-                                                        .customer_name ??
-                                                    "",
-                                                style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold),
-                                              ),
-                                              Text(
-                                                "${vehicles.data?[index].vechicle_name ?? ""}",
-                                                style: TextStyle(
-                                                    color: Colors.red[900]),
-                                              ),
-                                            ]),
-                                        const SizedBox(
-                                          width: 50,
-                                        ),
 
-                                      ]),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,

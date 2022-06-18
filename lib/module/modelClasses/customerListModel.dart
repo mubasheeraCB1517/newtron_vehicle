@@ -25,8 +25,7 @@ class CustomerList {
         return data;
 
     }
-    return data;
-  }
+
 }
 
 class Data {
