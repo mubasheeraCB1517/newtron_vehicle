@@ -1,55 +1,54 @@
 import 'package:flutter/material.dart';
-import '../../module/modelClasses/stateListModel.dart';
-import '../../module/repositotories/dealerCreationRepo.dart';
-import '../../module/repositotories/stateListRepo.dart';
-import 'dealerRegistrationScreen.dart';
+import '../../module/modelClasses/vehicleListModel.dart';
+import '../../module/repositotories/customerCreationRepo.dart';
+import '../../module/repositotories/vehicleListRepo.dart';
+import 'customerScreen.dart';
 
-class DealerCreation extends StatefulWidget {
-  const DealerCreation({Key? key, this.dealerDetails}) : super(key: key);
-  final dealerDetails;
+class CustomerCreation extends StatefulWidget {
+  const CustomerCreation({Key? key, this.customerDetails}) : super(key: key);
+  final customerDetails;
 
   @override
-  State<DealerCreation> createState() => _ColourCreationState();
+  State<CustomerCreation> createState() => _ColourCreationState();
 }
 
-class _ColourCreationState extends State<DealerCreation> {
-  final dealer_name = TextEditingController();
-  final address = TextEditingController();
-  final contact_no = TextEditingController();
+class _ColourCreationState extends State<CustomerCreation> {
+  final Number = TextEditingController();
+  final dealerName = TextEditingController();
+  final customerName = TextEditingController();
+  final contactNumber = TextEditingController();
   final email = TextEditingController();
-  final gst_in = TextEditingController();
-  final place = TextEditingController();
-  final password = TextEditingController();
+  final motorNumber = TextEditingController();
 
-  StateList _stateList = StateList();
-  String state_name = "";
-  String state_id = "";
+  VehicleList _vehicleList = VehicleList();
+  String vechicle_name = "";
+  String vechicle_id = "";
   String id = "";
 
   @override
   void initState() {
     super.initState();
-    StateListRepository().stateList().then((value) {
+    VehicleListRepository().vehicleList().then((value) {
       setState(() {
-        _stateList = value;
-        state_name = value.data[0].state_name;
-        state_id = value.data[0].state_id.toString();
-        if (widget.dealerDetails != null) {
-          int index = value.data?.indexWhere(
-              (item) => item.state_name == widget.dealerDetails["state_name"]);
-          state_name = value.data?[index].state_name;
-          state_id = value.data![index].state_id.toString();
+        _vehicleList = value;
+        vechicle_name = value.data[0].vechicle_name;
+        vechicle_id = value.data[0].vechicle_id.toString();
+        if (widget.customerDetails != null) {
+          int index = value.data?.indexWhere((item) =>
+              item.vechicle_name == widget.customerDetails["vechicle_name"]);
+          vechicle_name = value.data?[index].vechicle_name;
+          vechicle_id = value.data![index].vechicle_id.toString();
         }
       });
     });
-    if (widget.dealerDetails != null) {
-      dealer_name.text = widget.dealerDetails['dealer_name'].toString();
-      address.text = widget.dealerDetails['address'].toString();
-      contact_no.text = widget.dealerDetails['contact_no'].toString();
-      email.text = widget.dealerDetails['email'].toString();
-      gst_in.text = widget.dealerDetails['gst_in'].toString();
-      place.text = widget.dealerDetails['place'].toString();
-      // password.text =widget.dealerDetails['password'].toString();
+    if (widget.customerDetails != null) {
+      Number.text =
+          widget.customerDetails['vechicle_identification_num'].toString();
+      dealerName.text = widget.customerDetails['dealer_name'].toString();
+      customerName.text = widget.customerDetails['customer_name'].toString();
+      contactNumber.text = widget.customerDetails['customer_no'].toString();
+      email.text = widget.customerDetails['customer_email'].toString();
+      motorNumber.text = widget.customerDetails['motor_num'].toString();
     }
   }
 
@@ -62,7 +61,7 @@ class _ColourCreationState extends State<DealerCreation> {
         centerTitle: true,
         backgroundColor: Colors.yellow[200],
         title: Text(
-          "Dealer ADD",
+          "Customer ADD",
           style: TextStyle(color: Colors.green[400]),
         ),
         elevation: 0,
@@ -76,11 +75,11 @@ class _ColourCreationState extends State<DealerCreation> {
               Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: const Text(
-                    "DEALER NAME :",
+                    "Identification Number :",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
               TextFormField(
-                controller: dealer_name,
+                controller: Number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
@@ -93,12 +92,48 @@ class _ColourCreationState extends State<DealerCreation> {
               Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: const Text(
-                    "ADDRESS :",
+                    "Vechicle Name :",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  )),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 55,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.0),
+                    border: Border.all(color: Colors.grey)),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    items: _vehicleList.data?.map((item) {
+                      return DropdownMenuItem(
+                        value: item.vechicle_name,
+                        onTap: () {
+                          setState(() {
+                            vechicle_id = item.vechicle_id.toString();
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(item.vechicle_name ?? ""),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        vechicle_name = newValue.toString();
+                      });
+                    },
+                    value: vechicle_name,
+                  ),
+                ),
+              ),
+              Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: const Text(
+                    "Dealer Name :",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
               TextFormField(
-                controller: address,
-                maxLines: 3,
+                controller: dealerName,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
@@ -111,11 +146,11 @@ class _ColourCreationState extends State<DealerCreation> {
               Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: const Text(
-                    "CONTACT NUMBER :",
+                    "Customer Name :",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
               TextFormField(
-                controller: contact_no,
+                controller: customerName,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
@@ -128,7 +163,24 @@ class _ColourCreationState extends State<DealerCreation> {
               Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: const Text(
-                    "E-MAIL:",
+                    "Contact Number:",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  )),
+              TextFormField(
+                controller: contactNumber,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                    borderSide: BorderSide(
+                      color: Colors.green[400]!,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: const Text(
+                    "E-mail:",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
               TextFormField(
@@ -145,11 +197,11 @@ class _ColourCreationState extends State<DealerCreation> {
               Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: const Text(
-                    "GST_IN :",
+                    "Motor Number :",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
               TextFormField(
-                controller: gst_in,
+                controller: motorNumber,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
@@ -159,111 +211,32 @@ class _ColourCreationState extends State<DealerCreation> {
                   ),
                 ),
               ),
-              Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: const Text(
-                    "STATE:",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  )),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 55,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25.0),
-                    border: Border.all(color: Colors.grey)),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                    items: _stateList.data?.map((item) {
-                      return DropdownMenuItem(
-                        value: item.state_name,
-                        onTap: () {
-                          setState(() {
-                            state_id = item.state_id.toString();
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(item.state_name ?? ""),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (newValue) {
-                      setState(() {
-                        state_name = newValue.toString();
-                      });
-                    },
-                    value: state_name,
-                  ),
-                ),
+              const SizedBox(
+                height: 0,
               ),
-              Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: const Text(
-                    "PLACE :",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  )),
-              TextFormField(
-                controller: place,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                    borderSide: BorderSide(
-                      color: Colors.green[400]!,
-                    ),
-                  ),
-                ),
-              ),
-              widget.dealerDetails == null
-                  ? Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      child: const Text(
-                        "Password :",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ))
-                  : const SizedBox(
-                      height: 0,
-                    ),
-              widget.dealerDetails == null
-                  ? TextFormField(
-                      controller: password,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(
-                            color: Colors.green[400]!,
-                          ),
-                        ),
-                      ),
-                    )
-                  : const SizedBox(
-                      height: 0,
-                    ),
               const SizedBox(
                 height: 40,
               ),
               GestureDetector(
                 onTap: () {
-                  dealer_name.text.isEmpty == true &&
-                      address.text.isEmpty == true &&
-                      contact_no.text.isEmpty == true &&
+                  Number.text.isEmpty == true &&
+                      dealerName.text.isEmpty == true &&
+                      customerName.text.isEmpty == true &&
                       email.text.isEmpty == true &&
-                      gst_in.text.isEmpty == true &&
-                      state_id == true &&
-                      place.text.isEmpty == true &&
-                      password.text.isEmpty == true;
-                  DealerCreationRepository()
-                      .dealerCreation(
-                          dealer_name.text,
-                          address.text,
-                          contact_no.text,
+                      contactNumber.text.isEmpty == true &&
+                      vechicle_id == true &&
+                      motorNumber.text.isEmpty == true;
+                  CustomerCreationRepository()
+                      .customerCreation(
+                          vechicle_id,
+                          dealerName.text,
+                          customerName.text,
+                          contactNumber.text,
                           email.text,
-                          gst_in.text,
-                          state_id,
-                          place.text,
-                          password.text,
-                          widget.dealerDetails != null
-                              ? widget.dealerDetails["id"].toString()
+                          Number.text,
+                          motorNumber.text,
+                          widget.customerDetails != null
+                              ? widget.customerDetails["id"].toString()
                               : "0")
                       .then((value) {
                     if (value["success"] == 1) {
@@ -272,7 +245,7 @@ class _ColourCreationState extends State<DealerCreation> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const DealerScreen()),
+                            builder: (context) => const CustomerScreen()),
                       );
                     } else {}
                   });

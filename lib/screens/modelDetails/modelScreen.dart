@@ -183,7 +183,6 @@ class _ModelScreenState extends State<ModelScreen> {
                       )),
                     );
                   case Status.COMPLETED:
-                    // TODO: Handle this case.
                     break;
                 }
               }

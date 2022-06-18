@@ -183,7 +183,6 @@ class _BatteryScreenState extends State<PartsScreen> {
                       )),
                     );
                   case Status.COMPLETED:
-                    // TODO: Handle this case.
                     break;
                 }
               }
