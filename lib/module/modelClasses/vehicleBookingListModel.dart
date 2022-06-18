@@ -2,9 +2,7 @@ class VehicleBookingList {
   List<dynamic>? data;
   String? message;
   int? success;
-
   VehicleBookingList({this.data, this.message, this.success});
-
   factory VehicleBookingList.fromJson(Map<String, dynamic> json) {
     return VehicleBookingList(
       data: json['data'] != null
@@ -14,7 +12,6 @@ class VehicleBookingList {
       success: json['success'],
     );
   }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
@@ -25,7 +22,6 @@ class VehicleBookingList {
     return data;
   }
 }
-
 class Data {
   String? battery_name;
   String? booking_date;
@@ -42,7 +38,6 @@ class Data {
   String? updated_at;
   String? vechicle_name;
   String? vechicle_status;
-
   Data(
       {this.battery_name,
       this.booking_date,
@@ -59,7 +54,6 @@ class Data {
       this.updated_at,
       this.vechicle_name,
       this.vechicle_status});
-
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
       battery_name: json['battery_name'],
@@ -79,7 +73,6 @@ class Data {
       vechicle_status: json['vechicle_status'],
     );
   }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['battery_name'] = this.battery_name;

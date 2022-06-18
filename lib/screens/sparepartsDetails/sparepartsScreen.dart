@@ -66,7 +66,7 @@ class _BatteryScreenState extends State<SparePartsScreen> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(
-                            top: 40,
+                            top: 20,
                           ),
                           // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 40),
                           child: ListView.builder(
@@ -133,10 +133,9 @@ class _BatteryScreenState extends State<SparePartsScreen> {
                                               ),
                                               Text(
                                                 "${spare.data?[index].parts_name ?? ""}",
-                                                style: const TextStyle(
+                                                style:  TextStyle(
                                                     fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red),
+                                                    color: Colors.red[900]),
                                               ),
                                             ]),
                                         const SizedBox(

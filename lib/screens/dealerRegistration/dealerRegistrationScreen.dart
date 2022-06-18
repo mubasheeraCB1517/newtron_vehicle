@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/repositotories/dealerDeletionRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
-
 import '../../module/blocs/dealerListBloc.dart';
 import '../../module/modelClasses/dealerListModel.dart';
 import 'dealerRegistrationCreation.dart';
@@ -104,10 +103,9 @@ class _BatteryScreenState extends State<DealerScreen> {
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold),
                                             ),
-
                                             Text(
                                               "${dealer.data?[index].contact_no ?? ""}",
-                                              style:TextStyle(
+                                              style: TextStyle(
                                                   fontSize: 15,
                                                   color: Colors.red[900]),
                                             ),
@@ -116,14 +114,19 @@ class _BatteryScreenState extends State<DealerScreen> {
                                         width: 10,
                                       ),
                                       GestureDetector(
-                                        onTap: (){
-                                          DealerDeleteRepository().dealerDelete(dealer.data![index].id.toString()).then((value) {
-                                            if(value["success"] == 1){
+                                        onTap: () {
+                                          DealerDeleteRepository()
+                                              .dealerDelete(dealer
+                                                  .data![index].id
+                                                  .toString())
+                                              .then((value) {
+                                            if (value["success"] == 1) {
                                               Navigator.of(context).pop();
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>  const DealerScreen()),
+                                                    builder: (context) =>
+                                                        const DealerScreen()),
                                               );
                                             }
                                           });

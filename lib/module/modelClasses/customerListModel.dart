@@ -18,7 +18,7 @@ class CustomerList {
         data['message'] = this.message;
         data['success'] = this.success;
         if (this.data != null) {
-            data['`data`'] = this.data!.map((v) => v.toJson()).toList();
+            data['data'] = this.data!.map((v) => v.toJson()).toList();
         }
         return data;
     }
@@ -89,7 +89,6 @@ class Data {
         data['updated_at'] = this.updated_at;
         data['vechicle_identification_num'] = this.vechicle_identification_num;
         data['vechicle_name'] = this.vechicle_name;
-
         return data;
     }
 }

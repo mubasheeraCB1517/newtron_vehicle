@@ -68,13 +68,19 @@ class _ModelScreenState extends State<ModelScreen> {
                               itemCount: models.data?.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
-                                    ModelEditRepository().modelEdit(models.data![index].model_id.toString()).then((value) {
-                                      if(value["success"] == 1){
+                                  onTap: () {
+                                    ModelEditRepository()
+                                        .modelEdit(models.data![index].model_id
+                                            .toString())
+                                        .then((value) {
+                                      if (value["success"] == 1) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>  ModelCreation(modelDetails: value["data"],)),
+                                              builder: (context) =>
+                                                  ModelCreation(
+                                                    modelDetails: value["data"],
+                                                  )),
                                         );
                                       }
                                     });
@@ -112,7 +118,8 @@ class _ModelScreenState extends State<ModelScreen> {
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 18,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Text(
                                                 "₹${models.data?[index].dealer_price ?? ""}",
@@ -124,14 +131,19 @@ class _ModelScreenState extends State<ModelScreen> {
                                           width: 50,
                                         ),
                                         GestureDetector(
-                                          onTap: (){
-                                            ModelDeleteRepository().modelDelete(models.data![index].model_id.toString()).then((value) {
-                                              if(value["success"] == 1){
+                                          onTap: () {
+                                            ModelDeleteRepository()
+                                                .modelDelete(models
+                                                    .data![index].model_id
+                                                    .toString())
+                                                .then((value) {
+                                              if (value["success"] == 1) {
                                                 Navigator.of(context).pop();
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>  ModelScreen()),
+                                                      builder: (context) =>
+                                                          ModelScreen()),
                                                 );
                                               }
                                             });
@@ -146,8 +158,8 @@ class _ModelScreenState extends State<ModelScreen> {
                                             child: const Center(
                                                 child: Text(
                                               "Delete",
-                                              style:
-                                                  TextStyle(color: Colors.white),
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             )),
                                           ),
                                         ),

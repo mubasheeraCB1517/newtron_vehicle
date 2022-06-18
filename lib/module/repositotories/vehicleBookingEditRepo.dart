@@ -1,11 +1,11 @@
-
+import 'package:newtron_vehicle/module/modelClasses/vehicleListModel.dart';
 import 'package:newtron_vehicle/network/webApiProvider.dart';
 
-class SparePartsDeleteRepository {
-  Future sparePartsDelete(String spare_id) async {
+class VehicleBookingEditRepository {
+  Future vehicleBookingEdit(String id) async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{};
     final response = await WebApiProvider().getData(
-        url: "/api/spare_parts_delete?spare_id=${spare_id}&dlt_status=0",
+        url: "/api/vechicle_booking_show?id=15",
         isPost: false,
         isDelete: false,
         isPatch: false,
