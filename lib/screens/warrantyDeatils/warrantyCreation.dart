@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newtron_vehicle/module/modelClasses/vehicleListModel.dart';
+import 'package:newtron_vehicle/module/repositotories/customerGetRepo.dart';
 import 'package:newtron_vehicle/module/repositotories/vehicleListRepo.dart';
 import 'package:newtron_vehicle/module/repositotories/warrantyCreationRepo.dart';
 import 'package:newtron_vehicle/screens/alertBox/alertBox.dart';
@@ -184,6 +185,19 @@ class _WarrantyCreationState extends State<WarrantyCreation> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
               TextFormField(
+                onChanged: (String value){
+                  CustomerGetRepository().customerGet(vehicleId.toString(), value).then((value) {
+                    setState(()
+                    {
+                      customer_name.text = value.data.customer_name;
+                      dealer_name.text = value.data.dealer_name;
+                      customer_email.text = value.data.customer_email;
+                      customer_number.text = value.data.customer_no;
+                    }
+                    );
+
+                  });
+                },
                 controller: identification_number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(

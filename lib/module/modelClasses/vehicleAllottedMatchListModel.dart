@@ -4,7 +4,6 @@ class VehicleAllottedMatchList {
     int? success;
 
     VehicleAllottedMatchList({this.data, this.message, this.success});
-
     factory VehicleAllottedMatchList.fromJson(Map<String, dynamic> json) {
         return VehicleAllottedMatchList(
             data: json['data'] != null ? (json['data'] as List).map((i) => Data.fromJson(i)).toList() : null,
@@ -12,7 +11,6 @@ class VehicleAllottedMatchList {
             success: json['success'],
         );
     }
-
     Map<String, dynamic> toJson() {
         final Map<String, dynamic> data = new Map<String, dynamic>();
         data['message'] = this.message;
@@ -23,7 +21,6 @@ class VehicleAllottedMatchList {
         return data;
     }
 }
-
 class Data {
     String? battery_name;
     String? color_name;

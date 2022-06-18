@@ -101,6 +101,7 @@ class _VehicleAllottedMatchScreenState
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
+
                                               vehicles.data?[index]
                                                       .vechicle_name ??
                                                   "",
@@ -109,11 +110,12 @@ class _VehicleAllottedMatchScreenState
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Text(
-                                              "₹${vehicles.data?[index].price ?? ""}",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.red[900]),
-                                            ),
+                                             
+                                     
+
+                                              "${vehicles.data?[index]
+                                                  .model_name ?? ""}",style:  TextStyle(fontSize: 15,color: Colors.red[900]),),
+
                                           ]),
                                       const SizedBox(
                                         width: 10,

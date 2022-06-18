@@ -15,12 +15,15 @@ class CustomerList {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    data['success'] = this.success;
-    if (this.data != null) {
-      data['`data`'] = this.data!.map((v) => v.toJson()).toList();
+    Map<String, dynamic> toJson() {
+        final Map<String, dynamic> data = new Map<String, dynamic>();
+        data['message'] = this.message;
+        data['success'] = this.success;
+        if (this.data != null) {
+            data['data'] = this.data!.map((v) => v.toJson()).toList();
+        }
+        return data;
+
     }
     return data;
   }

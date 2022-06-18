@@ -143,7 +143,10 @@ class _ModelScreenState extends State<ModelScreen> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
+
                                                           const ModelScreen()),
+
+
                                                 );
                                               }
                                             });

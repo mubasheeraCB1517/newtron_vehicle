@@ -135,6 +135,7 @@ class _BatteryScreenState extends State<DealerScreen> {
                                         const SizedBox(
                                           width: 10,
                                         ),
+
                                         GestureDetector(
                                           onTap: () {
                                             DealerDeleteRepository()
@@ -167,6 +168,9 @@ class _BatteryScreenState extends State<DealerScreen> {
                                                   color: Colors.white),
                                             )),
                                           ),
+
+                                      ]),
+                                 
                                         ),
                                       ],
                                     ),
