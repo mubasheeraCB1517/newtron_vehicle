@@ -161,11 +161,9 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
                       decoration: const BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage("assets/images/error.png"),
-                            fit: BoxFit.contain
-                          )),
+                              fit: BoxFit.contain)),
                     );
                   case Status.COMPLETED:
-                    // TODO: Handle this case.
                     break;
                 }
               }

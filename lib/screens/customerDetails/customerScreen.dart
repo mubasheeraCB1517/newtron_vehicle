@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:newtron_vehicle/module/repositotories/colorEditRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
-import 'package:newtron_vehicle/screens/colourDetails/colourCreation.dart';
 import '../../module/blocs/customerListBloc.dart';
 import '../../module/modelClasses/customerListModel.dart';
+import '../../module/repositotories/customerDeleteRepo.dart';
+import '../../module/repositotories/customerEditRepo.dart';
+import 'customerCreation.dart';
 
 class CustomerScreen extends StatefulWidget {
   const CustomerScreen({Key? key}) : super(key: key);
@@ -37,11 +38,11 @@ class _ColourScreenState extends State<CustomerScreen> {
           actions: [
             IconButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const ColourCreation()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CustomerCreation()),
+                  );
                 },
                 icon: const Icon(Icons.add))
           ],
@@ -68,18 +69,18 @@ class _ColourScreenState extends State<CustomerScreen> {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
-                                    ColorEditRepository()
-                                        .colorEdit(customer
-                                            .data![index].color_id
-                                            .toString())
+                                    CustomerEditRepository()
+                                        .customerEdit(
+                                            customer.data![index].id.toString())
                                         .then((value) {
                                       if (value["success"] == 1) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  ColourCreation(
-                                                    colorDetails: value["data"],
+                                                  CustomerCreation(
+                                                    customerDetails:
+                                                        value["data"],
                                                   )),
                                         );
                                       }
@@ -137,6 +138,23 @@ class _ColourScreenState extends State<CustomerScreen> {
                                           width: 50,
                                         ),
                                         GestureDetector(
+                                          onTap: () {
+                                            CustomerDeleteRepository()
+                                                .customerdelete(customer
+                                                    .data![index].id
+                                                    .toString())
+                                                .then((value) {
+                                              if (value["success"] == 1) {
+                                                Navigator.of(context).pop();
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const CustomerScreen()),
+                                                );
+                                              }
+                                            });
+                                          },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 5),
@@ -169,7 +187,6 @@ class _ColourScreenState extends State<CustomerScreen> {
                       )),
                     );
                   case Status.COMPLETED:
-
                     break;
                 }
               }

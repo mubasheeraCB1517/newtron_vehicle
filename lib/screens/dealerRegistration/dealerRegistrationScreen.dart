@@ -178,6 +178,7 @@ class _BatteryScreenState extends State<DealerScreen> {
                       decoration: const BoxDecoration(
                           image: DecorationImage(
                         image: AssetImage("assets/images/error.png"),
+                        scale: 0.8,
                         fit: BoxFit.contain,
                       )),
                     );
