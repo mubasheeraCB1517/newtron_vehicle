@@ -15,7 +15,8 @@ import 'package:newtron_vehicle/module/repositotories/vehicleStatusRepo.dart';
 import 'package:newtron_vehicle/screens/vehicleBooking/vehicleBookingScreen.dart';
 
 class VehicleBookingEditing extends StatefulWidget {
-  const VehicleBookingEditing({Key? key, this.vehicleBookingDetails}) : super(key: key);
+  const VehicleBookingEditing({Key? key, this.vehicleBookingDetails})
+      : super(key: key);
   final vehicleBookingDetails;
 
   @override
@@ -42,7 +43,7 @@ class _VehicleBookingEditingState extends State<VehicleBookingEditing> {
   String battery_name = "";
   String battery_id = "";
   ColourList colourList = ColourList();
-  String  colour_name = "";
+  String colour_name = "";
   String colour_id = "";
   VehicleStatusList vehicleStatus = VehicleStatusList();
   String vehicle_status = "";
@@ -58,14 +59,16 @@ class _VehicleBookingEditingState extends State<VehicleBookingEditing> {
         dealer_id = value.data[0].id.toString();
         if (widget.vehicleBookingDetails != null) {
           int index = value.data?.indexWhere((item) =>
-          item.id.toString() == widget.vehicleBookingDetails["dealer_name"]);
+              item.id.toString() ==
+              widget.vehicleBookingDetails["dealer_name"]);
           dealer_name = value.data?[index].dealer_name;
           dealer_id = value.data![index].id.toString();
           customer_name.text = widget.vehicleBookingDetails["customer_name"];
           email.text = widget.vehicleBookingDetails["customer_email"];
           contact_no.text = widget.vehicleBookingDetails["customer_no"];
           booking_date.text = widget.vehicleBookingDetails["booking_date"];
-          vehicle_identification_num.text = widget.vehicleBookingDetails["vechicle_identification_num"];
+          vehicle_identification_num.text =
+              widget.vehicleBookingDetails["vechicle_identification_num"];
           motor_num.text = widget.vehicleBookingDetails["motor_num"];
         }
       });
@@ -78,9 +81,8 @@ class _VehicleBookingEditingState extends State<VehicleBookingEditing> {
         //print("item=${widget.vehicleBookingDetails.customer_name.toString()}");
         if (widget.vehicleBookingDetails != null) {
           int index = value.data!.indexWhere((item) =>
-          item.vechicle_name.toString() == widget.vehicleBookingDetails["vechicle_name"].toString()
-
-          );
+              item.vechicle_name.toString() ==
+              widget.vehicleBookingDetails["vechicle_name"].toString());
 
           vehicle_name = value.data?[index].vechicle_name;
           vehicle_id = value.data![index].vechicle_id.toString();
@@ -95,8 +97,8 @@ class _VehicleBookingEditingState extends State<VehicleBookingEditing> {
         //print("item=${widget.vehicleBookingDetails.customer_name.toString()}");
         if (widget.vehicleBookingDetails != null) {
           int index = value.data!.indexWhere((item) =>
-          item.model.toString() == widget.vehicleBookingDetails["model_name"].toString()
-          );
+              item.model.toString() ==
+              widget.vehicleBookingDetails["model_name"].toString());
           model_name = value.data?[index].model;
           model_id = value.data![index].model_id.toString();
         }
@@ -109,8 +111,8 @@ class _VehicleBookingEditingState extends State<VehicleBookingEditing> {
         battery_id = value.data[0].battery_id.toString();
         if (widget.vehicleBookingDetails != null) {
           int index = value.data!.indexWhere((item) =>
-          item.battery.toString() == widget.vehicleBookingDetails["battery_name"].toString()
-          );
+              item.battery.toString() ==
+              widget.vehicleBookingDetails["battery_name"].toString());
           battery_name = value.data?[index].battery;
           battery_id = value.data![index].battery_id.toString();
         }
@@ -123,8 +125,8 @@ class _VehicleBookingEditingState extends State<VehicleBookingEditing> {
         colour_id = value.data[0].color_id.toString();
         if (widget.vehicleBookingDetails != null) {
           int index = value.data!.indexWhere((item) =>
-          item.color_name.toString() == widget.vehicleBookingDetails["color_name"].toString()
-          );
+              item.color_name.toString() ==
+              widget.vehicleBookingDetails["color_name"].toString());
           colour_name = value.data?[index].color_name;
           colour_id = value.data![index].color_id.toString();
         }
@@ -137,8 +139,8 @@ class _VehicleBookingEditingState extends State<VehicleBookingEditing> {
         vehicle_status_id = value.data[0].id.toString();
         if (widget.vehicleBookingDetails != null) {
           int index = value.data!.indexWhere((item) =>
-          item.vechicle_status.toString() == widget.vehicleBookingDetails["vechicle_status"].toString()
-          );
+              item.vechicle_status.toString() ==
+              widget.vehicleBookingDetails["vechicle_status"].toString());
           vehicle_status = value.data?[index].vechicle_status;
           vehicle_status_id = value.data![index].id.toString();
         }
@@ -362,7 +364,7 @@ class _VehicleBookingEditingState extends State<VehicleBookingEditing> {
                         battery_name = newValue.toString();
                       });
                     },
-                  value: battery_name,
+                    value: battery_name,
                   ),
                 ),
               ),
@@ -497,16 +499,28 @@ class _VehicleBookingEditingState extends State<VehicleBookingEditing> {
               ),
               GestureDetector(
                 onTap: () {
-                  VehicleBookingSaveRepository().vehicleBookingSave(
-                      widget.vehicleBookingDetails["id"].toString(), customer_name.text, dealer_id, contact_no.text, email.text, vehicle_id, battery_id, colour_id, booking_date.text, vehicle_status_id,model_id).then((value) {
-                    if(value["success"] == 1){
+                  VehicleBookingSaveRepository()
+                      .vehicleBookingSave(
+                          widget.vehicleBookingDetails["id"].toString(),
+                          customer_name.text,
+                          dealer_id,
+                          contact_no.text,
+                          email.text,
+                          vehicle_id,
+                          battery_id,
+                          colour_id,
+                          booking_date.text,
+                          vehicle_status_id,
+                          model_id)
+                      .then((value) {
+                    if (value["success"] == 1) {
                       Navigator.of(context).pop();
                       Navigator.of(context).pop();
 
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>   VehicleBookingScreen()),
+                            builder: (context) => VehicleBookingScreen()),
                       );
                     }
                   });

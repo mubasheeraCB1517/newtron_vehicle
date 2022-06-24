@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/repositotories/sparePartsDeletionRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/sparepartsDetails/sparepartsCreation.dart';
-
 import '../../module/blocs/sparepartsListBloc.dart';
 import '../../module/modelClasses/sparepartsListModel.dart';
 import '../../module/repositotories/sparepartsEditRepo.dart';
@@ -133,7 +132,7 @@ class _BatteryScreenState extends State<SparePartsScreen> {
                                               ),
                                               Text(
                                                 "${spare.data?[index].parts_name ?? ""}",
-                                                style:  TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 15,
                                                     color: Colors.red[900]),
                                               ),
