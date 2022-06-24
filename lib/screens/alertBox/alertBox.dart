@@ -37,6 +37,6 @@ class _AlertBoxState extends State<AlertBox> {
         )
       ],
     );
-    ;
+
   }
 }

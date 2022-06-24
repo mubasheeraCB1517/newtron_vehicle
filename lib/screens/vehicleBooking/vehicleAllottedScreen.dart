@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/blocs/vehicleAllottedListBloc.dart';
 import 'package:newtron_vehicle/module/modelClasses/vehicleAllotedListModel.dart';
-import 'package:newtron_vehicle/module/repositotories/sparePartbookingEnquiryRepo.dart';
 import 'package:newtron_vehicle/network/response.dart';
 import 'package:newtron_vehicle/screens/vehicleBooking/vehicleAllottedMatchScreen.dart';
-import '../../module/blocs/sparepartsBookingListBloc.dart';
-import '../../module/modelClasses/sparepartsBookingLIstModel.dart';
 
 class VehicleAllottedScreen extends StatefulWidget {
   const VehicleAllottedScreen({Key? key}) : super(key: key);

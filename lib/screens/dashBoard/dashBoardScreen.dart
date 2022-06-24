@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/screens/colourDetails/colourScreen.dart';
 import 'package:newtron_vehicle/screens/modelDetails/modelScreen.dart';
+import 'package:newtron_vehicle/screens/services/servicesScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleBooking/vehicleAllottedScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleBooking/vehicleBookingScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleDetails/vehicleScreen.dart';
 import 'package:newtron_vehicle/screens/vehicleRegistration/vehicleRgistrationScreen.dart';
-
 import '../batteryDetails/batteryScreen.dart';
 import '../customerDetails/customerScreen.dart';
 import '../dealerRegistration/dealerRegistrationScreen.dart';
@@ -24,6 +24,14 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   @override
   Widget build(BuildContext context) {
+    void handleClick(int item) {
+      switch (item) {
+        case 0:
+          break;
+        case 1:
+          break;
+      }
+    }
     return Scaffold(
         drawer: Drawer(
           backgroundColor: Colors.white,
@@ -47,7 +55,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               ),
               ListTile(
                 title: Text(
-                  "Dealer Registration",
+                  "Dealer List",
                   style: TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.bold,
@@ -57,8 +65,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                        const DealerScreen()),
+                        builder: (context) => const DealerScreen()),
                   );
                 },
               ),
@@ -83,13 +90,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const VehicleAllottedScreen()),
+                            builder: (context) =>
+                                const VehicleAllottedScreen()),
                       );
                     },
                   ),
                   ListTile(
                     title: Text(
-                      "Vehicle booking List",
+                      "Registered Vehicle",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -104,7 +112,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     },
                   )
                 ],
-
               ),
               ListTile(
                 title: Text(
@@ -118,8 +125,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                        const WarrantyScreen()),
+                        builder: (context) => const WarrantyScreen()),
                   );
                 },
               ),
@@ -151,7 +157,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const VehicleRegistrationScreen()),
+                        builder: (context) =>
+                            const VehicleRegistrationScreen()),
                   );
                 },
               ),
@@ -206,12 +213,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     ),
                     onTap: () {
                       Navigator.push(
-                       context,
-                       MaterialPageRoute(
-                           builder: (context) =>
-                           const PartsScreen()),
-                     );
-                      },
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PartsScreen()),
+                      );
+                    },
                   ),
                   ListTile(
                     title: Text(
@@ -255,18 +261,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     ),
                     onTap: () {
                       Navigator.push(
-                       context,
-                       MaterialPageRoute(
-                           builder: (context) =>
-                           const BatteryScreen()),
-                     );},
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BatteryScreen()),
+                      );
+                    },
                   ),
                 ],
-
               ),
               ListTile(
                 title: Text(
-                  "Spare Parts Booking",
+                  "Spare Parts Booking Enquiry",
                   style: TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.bold,
@@ -276,8 +281,23 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                        const SparePartsBookingScreen()),
+                        builder: (context) => const SparePartsBookingScreen()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text(
+                  "Vehicle Services",
+                  style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800]),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ServicesScreen()),
                   );
                 },
               ),
@@ -303,13 +323,109 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           backgroundColor: Colors.yellow[200]!,
           elevation: 0,
           iconTheme: IconThemeData(color: Colors.green[400]),
+            actions: <Widget>[
+              PopupMenuButton<int>(
+                icon: Icon(Icons.person),
+                onSelected: (item) => handleClick(item),
+                itemBuilder: (context) => [
+                  PopupMenuItem<int>(value: 0, child: Text('Reset Password')),
+                  PopupMenuItem<int>(value: 1, child: Text('Log Out')),
+                ],
+              ),
+            ]
         ),
         body: Container(
+          margin: EdgeInsets.symmetric(vertical: 20),
           decoration: const BoxDecoration(
               image: DecorationImage(
-                  scale: 2.5,
+                alignment: Alignment.bottomCenter,
+                  scale: 1,
                   image:
-                      AssetImage("assets/images/newtron_tr_icon-300x300.png"))),
+                      AssetImage("assets/images/newtron_vehicle.png"))),
+          child: GridView.count(
+            primary: false,
+            padding: const EdgeInsets.all(20),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: 2,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                        const VehicleAllottedScreen()),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.teal[100],
+                  ),
+                  padding: const EdgeInsets.all(8),
+
+                  child: Center(child: const Text("Vehicle Alloted Pending",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),textAlign: TextAlign.center),)),
+              ),
+
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const VehicleBookingScreen()),
+                  );
+                },
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      color: Colors.teal[200],
+                    ),
+                  padding: const EdgeInsets.all(8),
+
+                  child: Center(child: const Text("Registered Vehicle",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),textAlign: TextAlign.center),)
+                ),
+              ),
+              GestureDetector(
+
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SparePartsBookingScreen()),
+                  );
+                },
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      color: Colors.teal[200],
+                    ),
+                  padding: const EdgeInsets.all(8),
+
+                  child: Center(child: const Text("Spare Parts Enquiry",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),textAlign: TextAlign.center),)
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ServicesScreen()),
+                  );
+                },
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      color: Colors.teal[100],
+                    ),
+                  padding: const EdgeInsets.all(8),
+
+                  child: Center(child: const Text("Vehicle Services",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),textAlign: TextAlign.center),)
+                ),
+              ),
+
+            ],
+          )
         ));
   }
 }

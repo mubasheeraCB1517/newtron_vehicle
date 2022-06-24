@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:newtron_vehicle/module/blocs/vehicleBookingListBloc.dart';
 import 'package:newtron_vehicle/module/modelClasses/vehicleBookingListModel.dart';
@@ -57,14 +58,20 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
                               itemCount: vehicles.data?.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
-                                    VehicleBookingEditRepository().vehicleBookingEdit(vehicles.data![index].id.toString()).then((value) {
-                                      if(value["success"] == 1){
-                                     
+                                  onTap: () {
+                                    VehicleBookingEditRepository()
+                                        .vehicleBookingEdit(
+                                            vehicles.data![index].id.toString())
+                                        .then((value) {
+                                      if (value["success"] == 1) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>   VehicleBookingEditing(vehicleBookingDetails:value["data"] ,)),
+                                              builder: (context) =>
+                                                  VehicleBookingEditing(
+                                                    vehicleBookingDetails:
+                                                        value["data"],
+                                                  )),
                                         );
                                       }
                                     });
@@ -87,47 +94,50 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
                                                 1), // changes position of shadow
                                           ),
                                         ]),
-
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              vehicles.data?[index]
-                                                      .customer_name ??
-                                                  "",
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              "${vehicles.data?[index].vechicle_name ?? ""}",
-                                              style: TextStyle(
-                                                  color: Colors.red[900]),
-                                            ),
-                                          ]),
-                                      const SizedBox(
-                                        width: 50,
-                                      ),
-                                     
-
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                vehicles.data?[index]
+                                                        .customer_name ??
+                                                    "",
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text(
+                                                "${vehicles.data?[index].vechicle_name ?? ""}",
+                                                style: TextStyle(
+                                                    color: Colors.red[900]),
+                                              ),
+                                            ]),
+                                        const SizedBox(
+                                          width: 50,
+                                        ),
                                         GestureDetector(
-                                          onTap: (){
-                                            VehicleBookingDeleteRepository().vehicleBookingDelete(vehicles.data![index].id.toString()).then((value) {
-                                              if(value["success"] == 1){
+                                          onTap: () {
+                                            VehicleBookingDeleteRepository()
+                                                .vehicleBookingDelete(vehicles
+                                                    .data![index].id
+                                                    .toString())
+                                                .then((value) {
+                                              if (value["success"] == 1) {
                                                 Navigator.pop(context);
                                                 Navigator.pop(context);
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>  const VehicleBookingScreen()),
+                                                      builder: (context) =>
+                                                          const VehicleBookingScreen()),
                                                 );
                                               }
                                             });
@@ -142,11 +152,10 @@ class _VehicleBookingScreenState extends State<VehicleBookingScreen> {
                                             child: const Center(
                                                 child: Text(
                                               "Delete",
-                                              style:
-                                                  TextStyle(color: Colors.white),
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             )),
                                           ),
-
                                         ),
                                       ],
                                     ),

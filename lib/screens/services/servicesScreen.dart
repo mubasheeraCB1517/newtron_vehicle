@@ -1,26 +1,28 @@
-import 'package:flutter/material.dart';
-import 'package:newtron_vehicle/module/blocs/modelListBloc.dart';
-import 'package:newtron_vehicle/module/modelClasses/modelListModel.dart';
-import 'package:newtron_vehicle/module/repositotories/modelDeleteRepo.dart';
-import 'package:newtron_vehicle/module/repositotories/modelEditRepo.dart';
-import 'package:newtron_vehicle/network/response.dart';
-import 'package:newtron_vehicle/screens/modelDetails/modelCreation.dart';
 
-class ModelScreen extends StatefulWidget {
-  const ModelScreen({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:newtron_vehicle/module/blocs/servicesListBloc.dart';
+import 'package:newtron_vehicle/module/modelClasses/servicesList.dart';
+import 'package:newtron_vehicle/module/repositotories/serviceEditRepository.dart';
+import 'package:newtron_vehicle/network/response.dart';
+import 'package:newtron_vehicle/screens/partsDetails/partsCreation.dart';
+import 'package:newtron_vehicle/screens/services/servicesCreation.dart';
+
+class ServicesScreen extends StatefulWidget {
+  const ServicesScreen({Key? key}) : super(key: key);
 
   @override
-  State<ModelScreen> createState() => _ModelScreenState();
+  State<ServicesScreen> createState() => _ServicesScreenState();
 }
 
-class _ModelScreenState extends State<ModelScreen> {
-  late ModelList models;
-  late ModelListBloc _bloc;
+class _ServicesScreenState extends State<ServicesScreen> {
+  late ServicesList services;
+  late ServicesListBloc _bloc;
+
 
   @override
   void initState() {
     super.initState();
-    _bloc = ModelListBloc();
+    _bloc = ServicesListBloc();
   }
 
   @override
@@ -31,7 +33,7 @@ class _ModelScreenState extends State<ModelScreen> {
           centerTitle: true,
           backgroundColor: Colors.yellow[200],
           title: Text(
-            "Model List",
+            "Services List",
             style: TextStyle(color: Colors.green[400]),
           ),
           elevation: 0,
@@ -39,16 +41,16 @@ class _ModelScreenState extends State<ModelScreen> {
             IconButton(
                 onPressed: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ModelCreation()),
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ServiceCreation()));
                 },
                 icon: const Icon(Icons.add))
           ],
+
         ),
-        body: StreamBuilder<Response<ModelList>>(
-            stream: _bloc.modelListDataStream,
+        body: StreamBuilder<Response<ServicesList>>(
+            stream: _bloc.serviceListDataStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 switch (snapshot.data!.status) {
@@ -58,32 +60,36 @@ class _ModelScreenState extends State<ModelScreen> {
                         color: Colors.green[400],
                       ),
                     );
+
                   case Status.SUCCESS:
-                    models = snapshot.data!.data;
+                    services = snapshot.data!.data;
                     return Stack(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(top: 20),
+                          margin: const EdgeInsets.only(
+                            top: 20,
+                          ),
                           child: ListView.builder(
-                              itemCount: models.data?.length,
+                              itemCount: services.data?.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
-                                    ModelEditRepository()
-                                        .modelEdit(models.data![index].model_id
-                                            .toString())
+                                    ServicesEditRepository()
+                                        .servicesEdit(services.data![index].service_id
+                                        .toString())
                                         .then((value) {
                                       if (value["success"] == 1) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  ModelCreation(
-                                                    modelDetails: value["data"],
+                                                  ServiceCreation(
+                                                    ServiceDetails: value["data"],
                                                   )),
                                         );
                                       }
                                     });
+
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
@@ -96,57 +102,43 @@ class _ModelScreenState extends State<ModelScreen> {
                                         color: Colors.white,
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
+                                            color: Colors.grey.withOpacity(0.2),
                                             spreadRadius: 1,
-                                            blurRadius: 1,
+                                            blurRadius: 3,
                                             offset: const Offset(1,
                                                 1), // changes position of shadow
                                           ),
                                         ]),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                models.data?[index].model ?? "",
+                                                services.data?[index].customer_name ?? "",
                                                 style: const TextStyle(
-                                                    color: Colors.black,
                                                     fontSize: 18,
                                                     fontWeight:
-                                                        FontWeight.bold),
+                                                    FontWeight.bold),
                                               ),
                                               Text(
-                                                "₹${models.data?[index].dealer_price ?? ""}",
+                                                "${services.data?[index].service_status ?? ""}",
                                                 style: TextStyle(
-                                                    color: Colors.red[900]),
+                                                    fontSize: 15,
+                                                    color: Colors.red[900]!),
                                               ),
                                             ]),
                                         const SizedBox(
-                                          width: 50,
+                                          width: 10,
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            ModelDeleteRepository()
-                                                .modelDelete(models
-                                                    .data![index].model_id
-                                                    .toString())
-                                                .then((value) {
-                                              if (value["success"] == 1) {
-                                                Navigator.of(context).pop();
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const ModelScreen()),
-                                                );
-                                              }
-                                            });
+
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
@@ -154,13 +146,13 @@ class _ModelScreenState extends State<ModelScreen> {
                                             decoration: BoxDecoration(
                                                 color: Colors.green[400],
                                                 borderRadius:
-                                                    BorderRadius.circular(5)),
+                                                BorderRadius.circular(5)),
                                             child: const Center(
                                                 child: Text(
-                                              "Delete",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            )),
+                                                  "Delete",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                )),
                                           ),
                                         ),
                                       ],
@@ -175,9 +167,9 @@ class _ModelScreenState extends State<ModelScreen> {
                     return Container(
                       decoration: const BoxDecoration(
                           image: DecorationImage(
-                        image: AssetImage("assets/images/error.png"),
-                        fit: BoxFit.contain,
-                      )),
+                            image: AssetImage("assets/images/error.png"),
+                            fit: BoxFit.contain,
+                          )),
                     );
                   case Status.COMPLETED:
                     break;
